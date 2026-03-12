@@ -1,0 +1,17 @@
+{
+  "name": "Achievement Garden",
+  "short_name": "AchGarden",
+  "description": "Mobile-first achievement tracker (offline-first).",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0a0410",
+  "theme_color": "#ff3fb4",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
