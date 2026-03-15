@@ -1,4 +1,4 @@
-import type { Platform } from './types';
+import type { Platform, PsnTier, Game } from './types';
 
 export function el<K extends keyof HTMLElementTagNameMap>(tag: K, attrs: Record<string, any> = {}, children: Array<HTMLElement | Text | string> = []): HTMLElementTagNameMap[K] {
   const n = document.createElement(tag);
@@ -35,4 +35,17 @@ export function platformLabel(p: Platform): string {
 
 export function platformDotClass(p: Platform): string {
   return p;
+}
+
+export function psnTierLabel(tier: PsnTier): string {
+  if (tier === 'bronze') return 'Bronze';
+  if (tier === 'silver') return 'Silver';
+  if (tier === 'gold') return 'Gold';
+  return 'Platinum';
+}
+
+export function gamePlatformDetailLabel(game: Game): string | null {
+  if (game.platform === 'psn' && game.platformDetails?.psnConsole) return game.platformDetails.psnConsole;
+  if (game.platform === 'xbox' && game.platformDetails?.xboxConsole) return game.platformDetails.xboxConsole;
+  return null;
 }

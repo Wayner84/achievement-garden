@@ -1,6 +1,8 @@
 export type Platform = 'psn' | 'xbox' | 'steam';
 
 export type PsnTier = 'bronze' | 'silver' | 'gold' | 'platinum';
+export type PsnConsole = 'PS4' | 'PS5' | 'PS Vita' | 'PS3';
+export type XboxConsole = 'Xbox One' | 'Xbox Series X|S' | 'Windows' | 'Xbox 360';
 
 export type Achievement = {
   id: string;
@@ -21,6 +23,10 @@ export type Game = {
   platform: Platform;
   title: string;
   artwork?: string;
+  platformDetails?: {
+    psnConsole?: PsnConsole;
+    xboxConsole?: XboxConsole;
+  };
   source?: {
     kind: 'manual' | 'steam' | 'psnprofiles' | 'xboxachievements' | 'catalog' | 'other';
     externalId?: string;

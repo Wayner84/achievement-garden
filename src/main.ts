@@ -1,7 +1,7 @@
 import './style.css';
 import type { Game, Platform, Settings, Achievement } from './lib/types';
 import { loadGames, saveGames, loadSettings, saveSettings, exportAll, importAll } from './lib/storage';
-import { el, icon, platformLabel, platformDotClass } from './lib/ui';
+import { el, icon, platformLabel, platformDotClass, psnTierLabel, gamePlatformDetailLabel } from './lib/ui';
 import { searchAll, makeGameFromResult, type SearchResult } from './lib/providers';
 import { clamp, formatPct, now } from './lib/util';
 
@@ -372,10 +372,12 @@ function app() {
       art.append(el('img', { src: g.artwork ?? `https://picsum.photos/seed/${encodeURIComponent(g.title)}/512/512`, alt: '' }));
 
       const meta = el('div', { class: 'meta' });
+      const platformDetail = gamePlatformDetailLabel(g);
       meta.append(
         el('div', { class: 'gtitle' }, [g.title]),
         el('div', { class: 'gsub' }, [
           el('span', { class: 'pill' }, [el('span', { class: `badge ${platformDotClass(g.platform)}` }), platformLabel(g.platform)]),
+          ...(platformDetail ? [el('span', { class: 'pill' }, [platformDetail])] : []),
           g.source?.kind ? el('span', { class: 'pill' }, [g.source.kind]) : el('span', { class: 'pill' }, ['manual']),
         ]),
         el('div', { class: 'progress' }, [
@@ -402,10 +404,10 @@ function app() {
   }
 
   function achievementMeta(a: Achievement): HTMLElement {
-    if (a.platform === 'psn' && a.psn) return el('span', { class: `tier ${a.psn.tier}` }, [a.psn.tier]);
+    if (a.platform === 'psn' && a.psn) return el('span', { class: `tier ${a.psn.tier}` }, [psnTierLabel(a.psn.tier)]);
     if (a.platform === 'xbox' && a.xbox) return el('span', { class: 'pill' }, [`${a.xbox.gamerscore}G`]);
     if (a.platform === 'steam' && a.steam) return el('span', { class: 'pill' }, [`${a.steam.points} pts`]);
-    return el('span', { class: 'pill' }, ['achievement']);
+    return el('span', { class: 'pill' }, ['Achievement']);
   }
 
   function renderGame(container: HTMLElement, id: string) {
@@ -421,6 +423,8 @@ function app() {
     contextBtn.innerHTML = icon('arrow-left');
     contextBtn.onclick = () => setRoute({ name: 'library' });
 
+    const platformDetail = gamePlatformDetailLabel(g);
+
     const header = el('div', { class: 'card', style: 'margin-bottom:12px' }, [
       el('div', { class: 'game' }, [
         el('div', { class: 'art', style: 'width: 96px; height: 96px' }, [
@@ -430,6 +434,7 @@ function app() {
           el('div', { class: 'gtitle' }, [g.title]),
           el('div', { class: 'gsub' }, [
             el('span', { class: 'pill' }, [el('span', { class: `badge ${platformDotClass(g.platform)}` }), platformLabel(g.platform)]),
+            ...(platformDetail ? [el('span', { class: 'pill' }, [platformDetail])] : []),
             g.source?.url ? el('a', { class: 'pill', href: g.source.url, target: '_blank', rel: 'noreferrer' }, ['source ↗']) : el('span', { class: 'pill' }, [g.source?.kind ?? 'manual']),
           ]),
           el('div', { class: 'progress' }, [
@@ -458,14 +463,16 @@ function app() {
       const img = el('div', { class: 'aimg' });
       img.append(el('img', { src: a.image ?? `https://picsum.photos/seed/${encodeURIComponent(a.title)}/256/256`, alt: '' }));
 
+      const achievementBits = [
+        achievementMeta(a),
+        ...(typeof a.rarity === 'number' ? [el('span', { class: 'pill' }, [`Rarity ${a.rarity.toFixed(1)}%`])] : []),
+        el('span', { class: 'pill' }, [a.unlocked ? 'Unlocked' : 'Locked']),
+      ];
+
       const meta = el('div', { style: 'flex:1; min-width:0' }, [
         el('div', { class: 'at' }, [a.title]),
         el('div', { class: 'ad' }, [a.description || '—']),
-        el('div', { class: 'ar' }, [
-          achievementMeta(a),
-          typeof a.rarity === 'number' ? el('span', { class: 'pill' }, [`${a.rarity.toFixed(1)}%`]) : el('span', { class: 'pill' }, ['rarity ?']),
-          el('span', { class: 'pill' }, [a.unlocked ? 'unlocked' : 'locked']),
-        ]),
+        el('div', { class: 'ar' }, achievementBits),
       ]);
 
       row.append(img, meta);
