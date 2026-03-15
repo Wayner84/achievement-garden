@@ -145,6 +145,16 @@ button, input{font:inherit}
   gap: 12px;
 }
 
+.shelf{
+  margin-bottom: 18px;
+}
+.shelfhead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
 @media (min-width: 720px){
   .grid{ grid-template-columns: 1fr 1fr; }
 }
@@ -160,17 +170,15 @@ button, input{font:inherit}
 .detailpage{
   position: relative;
   padding: 6px 0 2px;
-  background:
-    radial-gradient(1200px 420px at 20% 0%, rgba(255,63,180,.14), transparent 58%),
-    radial-gradient(900px 340px at 100% 8%, rgba(155,92,255,.12), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
-  background-repeat: no-repeat;
-  border-radius: 28px;
 }
 
 .detailhero{
   position: relative;
-  background: linear-gradient(180deg, rgba(34,9,45,.82), rgba(15,7,24,.72));
+  background:
+    radial-gradient(520px 180px at 18% 0%, rgba(255,63,180,.18), transparent 60%),
+    radial-gradient(420px 180px at 92% 10%, rgba(155,92,255,.12), transparent 62%),
+    linear-gradient(180deg, rgba(34,9,45,.82), rgba(15,7,24,.72));
+  background-repeat: no-repeat;
 }
 
 .game{

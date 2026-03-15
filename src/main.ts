@@ -361,38 +361,69 @@ function app() {
       return;
     }
 
-    const grid = el('div', { class: 'grid' });
+    const groups = [
+      { key: 'currently-playing', label: 'Currently Playing' },
+      { key: 'backlog', label: 'Backlog' },
+      { key: 'to-play', label: 'To Play' },
+      { key: 'wont-revisit', label: "Won’t Revisit" },
+    ] as const;
 
-    for (const g of sortGames(games)) {
-      const p = computeProgress(g);
-      const card = el('div', { class: 'card' });
-      const row = el('div', { class: 'game' });
+    for (const group of groups) {
+      const items = sortGames(games).filter((g) => (g.status ?? 'to-play') === group.key);
+      const section = el('section', { class: 'shelf' });
+      const header = el('div', { class: 'shelfhead' }, [
+        el('div', { class: 'h1', style: 'margin: 6px 0 8px' }, [group.label]),
+        el('span', { class: 'pill' }, [`${items.length}`]),
+      ]);
+      section.append(header);
 
-      const art = el('div', { class: 'art' });
-      art.append(el('img', { src: g.artwork ?? `https://picsum.photos/seed/${encodeURIComponent(g.title)}/512/512`, alt: '' }));
+      if (!items.length) {
+        section.append(el('div', { class: 'empty' }, [`No games in ${group.label.toLowerCase()} yet.`]));
+        container.append(section);
+        continue;
+      }
 
-      const meta = el('div', { class: 'meta' });
-      const platformDetail = gamePlatformDetailLabel(g);
-      meta.append(
-        el('div', { class: 'gtitle' }, [g.title]),
-        el('div', { class: 'gsub' }, [
-          el('span', { class: 'pill' }, [el('span', { class: `badge ${platformDotClass(g.platform)}` }), platformLabel(g.platform)]),
-          ...(platformDetail ? [el('span', { class: 'pill' }, [platformDetail])] : []),
-          el('span', { class: 'pill' }, [gameStatusLabel(g.status)]),
-        ]),
-        el('div', { class: 'progress' }, [
-          el('div', { class: 'bar' }, [el('div', { class: 'fill', style: `width:${clamp(p.pct, 0, 100)}%` })]),
-          el('div', { class: 'kpi' }, [`${p.unlocked}/${p.total}  ${formatPct(p.pct)}`]),
-        ]),
-      );
+      const grid = el('div', { class: 'grid' });
 
-      row.append(art, meta);
-      card.append(row);
-      card.onclick = () => setRoute({ name: 'game', id: g.id });
-      grid.append(card);
+      for (const g of items) {
+        const p = computeProgress(g);
+        const card = el('div', { class: 'card' });
+        const row = el('div', { class: 'game' });
+
+        const art = el('div', { class: 'art' });
+        art.append(el('img', { src: g.artwork ?? `https://picsum.photos/seed/${encodeURIComponent(g.title)}/512/512`, alt: '' }));
+
+        const meta = el('div', { class: 'meta' });
+        const platformDetail = gamePlatformDetailLabel(g);
+        meta.append(
+          el('div', { class: 'gtitle' }, [g.title]),
+          el('div', { class: 'gsub' }, [
+            el('span', { class: 'pill' }, [el('span', { class: `badge ${platformDotClass(g.platform)}` }), platformLabel(g.platform)]),
+            ...(platformDetail ? [el('span', { class: 'pill' }, [platformDetail])] : []),
+            el('button', { class: 'pill ghostpill', onclick: (ev: Event) => {
+              ev.preventDefault();
+              ev.stopPropagation();
+              g.status = nextGameStatus(g.status);
+              g.updatedAt = now();
+              saveGames(games);
+              render();
+            } }, [gameStatusLabel(g.status)]),
+          ]),
+          el('div', { class: 'progress' }, [
+            el('div', { class: 'bar' }, [el('div', { class: 'fill', style: `width:${clamp(p.pct, 0, 100)}%` })]),
+            el('div', { class: 'kpi' }, [`${p.unlocked}/${p.total}  ${formatPct(p.pct)}`]),
+          ]),
+        );
+
+        row.append(art, meta);
+        card.append(row);
+        card.onclick = () => setRoute({ name: 'game', id: g.id });
+        grid.append(card);
+      }
+
+      section.append(grid);
+      container.append(section);
     }
-
-    container.append(grid);
   }
 
   function toggleAchievement(g: Game, achId: string) {
