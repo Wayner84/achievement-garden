@@ -1,4 +1,4 @@
-import type { Platform, PsnTier, Game } from './types';
+import type { Platform, PsnTier, Game, GameStatus } from './types';
 
 export function el<K extends keyof HTMLElementTagNameMap>(tag: K, attrs: Record<string, any> = {}, children: Array<HTMLElement | Text | string> = []): HTMLElementTagNameMap[K] {
   const n = document.createElement(tag);
@@ -48,4 +48,18 @@ export function gamePlatformDetailLabel(game: Game): string | null {
   if (game.platform === 'psn' && game.platformDetails?.psnConsole) return game.platformDetails.psnConsole;
   if (game.platform === 'xbox' && game.platformDetails?.xboxConsole) return game.platformDetails.xboxConsole;
   return null;
+}
+
+export function gameStatusLabel(status: GameStatus | undefined): string {
+  if (status === 'currently-playing') return 'Currently Playing';
+  if (status === 'backlog') return 'Backlog';
+  if (status === 'wont-revisit') return "Won't Revisit";
+  return 'To Play';
+}
+
+export function nextGameStatus(status: GameStatus | undefined): GameStatus {
+  if (status === 'to-play' || !status) return 'currently-playing';
+  if (status === 'currently-playing') return 'backlog';
+  if (status === 'backlog') return 'wont-revisit';
+  return 'to-play';
 }

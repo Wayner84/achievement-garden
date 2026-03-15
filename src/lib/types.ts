@@ -18,6 +18,8 @@ export type Achievement = {
   rarity?: number; // 0..100 (% of players)
 };
 
+export type GameStatus = 'currently-playing' | 'backlog' | 'to-play' | 'wont-revisit';
+
 export type Game = {
   id: string;
   platform: Platform;
@@ -27,6 +29,7 @@ export type Game = {
     psnConsole?: PsnConsole;
     xboxConsole?: XboxConsole;
   };
+  status?: GameStatus;
   source?: {
     kind: 'manual' | 'steam' | 'psnprofiles' | 'xboxachievements' | 'catalog' | 'other';
     externalId?: string;

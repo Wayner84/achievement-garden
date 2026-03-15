@@ -157,6 +157,27 @@ button, input{font:inherit}
   overflow:hidden;
 }
 
+.detailpage{
+  position: relative;
+  padding: 6px 0 2px;
+}
+.detailpage::before{
+  content:"";
+  position:absolute;
+  inset:-10px -8px 0;
+  background:
+    radial-gradient(900px 360px at 15% 0%, rgba(255,63,180,.18), transparent 55%),
+    radial-gradient(700px 280px at 90% 12%, rgba(155,92,255,.14), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0));
+  pointer-events:none;
+  border-radius: 28px;
+}
+
+.detailhero{
+  position: relative;
+  background: linear-gradient(180deg, rgba(34,9,45,.82), rgba(15,7,24,.7));
+}
+
 .game{
   display:flex;
   gap: 12px;
@@ -394,6 +415,10 @@ button, input{font:inherit}
   background: linear-gradient(90deg, rgba(255,29,142,.35), rgba(155,92,255,.22));
 }
 .btn.danger{border-color: rgba(255,65,95,.6); background: rgba(255,65,95,.12)}
+.ghostpill{
+  cursor:pointer;
+  appearance:none;
+}
 
 /* achievements */
 .achList{display:grid; gap: 10px}
@@ -402,10 +427,14 @@ button, input{font:inherit}
   gap: 12px;
   padding: 12px;
   border-radius: 20px;
-  background: rgba(255,255,255,.06);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.045));
   border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(8px);
 }
-.ach[data-unlocked="true"]{border-color: rgba(72,255,211,.25); background: rgba(72,255,211,.07)}
+.ach[data-unlocked="true"]{
+  border-color: rgba(72,255,211,.25);
+  background: linear-gradient(180deg, rgba(72,255,211,.11), rgba(255,255,255,.05));
+}
 .ach .aimg{width: 56px; height: 56px; border-radius: 16px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); overflow:hidden; flex:0 0 auto}
 .ach .aimg img{width:100%; height:100%; object-fit:cover; display:block}
 .ach .at{font-weight:700; font-size: 14px; margin-bottom: 2px}

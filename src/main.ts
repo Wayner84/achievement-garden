@@ -1,7 +1,7 @@
 import './style.css';
 import type { Game, Platform, Settings, Achievement } from './lib/types';
 import { loadGames, saveGames, loadSettings, saveSettings, exportAll, importAll } from './lib/storage';
-import { el, icon, platformLabel, platformDotClass, psnTierLabel, gamePlatformDetailLabel } from './lib/ui';
+import { el, icon, platformLabel, platformDotClass, psnTierLabel, gamePlatformDetailLabel, gameStatusLabel, nextGameStatus } from './lib/ui';
 import { searchAll, makeGameFromResult, type SearchResult } from './lib/providers';
 import { clamp, formatPct, now } from './lib/util';
 
@@ -378,7 +378,7 @@ function app() {
         el('div', { class: 'gsub' }, [
           el('span', { class: 'pill' }, [el('span', { class: `badge ${platformDotClass(g.platform)}` }), platformLabel(g.platform)]),
           ...(platformDetail ? [el('span', { class: 'pill' }, [platformDetail])] : []),
-          g.source?.kind ? el('span', { class: 'pill' }, [g.source.kind]) : el('span', { class: 'pill' }, ['manual']),
+          el('span', { class: 'pill' }, [gameStatusLabel(g.status)]),
         ]),
         el('div', { class: 'progress' }, [
           el('div', { class: 'bar' }, [el('div', { class: 'fill', style: `width:${clamp(p.pct, 0, 100)}%` })]),
@@ -425,7 +425,9 @@ function app() {
 
     const platformDetail = gamePlatformDetailLabel(g);
 
-    const header = el('div', { class: 'card', style: 'margin-bottom:12px' }, [
+    const page = el('div', { class: 'detailpage' });
+
+    const header = el('div', { class: 'card detailhero', style: 'margin-bottom:12px' }, [
       el('div', { class: 'game' }, [
         el('div', { class: 'art', style: 'width: 96px; height: 96px' }, [
           el('img', { src: g.artwork ?? `https://picsum.photos/seed/${encodeURIComponent(g.title + g.platform)}/512/512`, alt: '' }),
@@ -435,8 +437,16 @@ function app() {
           el('div', { class: 'gsub' }, [
             el('span', { class: 'pill' }, [el('span', { class: `badge ${platformDotClass(g.platform)}` }), platformLabel(g.platform)]),
             ...(platformDetail ? [el('span', { class: 'pill' }, [platformDetail])] : []),
-            g.source?.url ? el('a', { class: 'pill', href: g.source.url, target: '_blank', rel: 'noreferrer' }, ['source ↗']) : el('span', { class: 'pill' }, [g.source?.kind ?? 'manual']),
-          ]),
+            el('button', { class: 'pill ghostpill', onclick: (ev: Event) => {
+              ev.preventDefault();
+              ev.stopPropagation();
+              g.status = nextGameStatus(g.status);
+              g.updatedAt = now();
+              saveGames(games);
+              render();
+            } }, [gameStatusLabel(g.status)]),
+            g.source?.url ? el('a', { class: 'pill', href: g.source.url, target: '_blank', rel: 'noreferrer' }, ['source ↗']) : null,
+          ].filter(Boolean) as HTMLElement[]),
           el('div', { class: 'progress' }, [
             el('div', { class: 'bar' }, [el('div', { class: 'fill', style: `width:${clamp(prog.pct, 0, 100)}%` })]),
             el('div', { class: 'kpi' }, [`${prog.unlocked}/${prog.total}  ${formatPct(prog.pct)}`]),
@@ -454,7 +464,7 @@ function app() {
       ]),
     ]);
 
-    container.append(header);
+    page.append(header);
 
     const list = el('div', { class: 'achList' });
 
@@ -485,8 +495,9 @@ function app() {
       list.append(row);
     }
 
-    container.append(el('div', { class: 'h1', style: 'margin-top:14px' }, ['Achievements']));
-    container.append(list);
+    page.append(el('div', { class: 'h1', style: 'margin-top:14px' }, ['Achievements']));
+    page.append(list);
+    container.append(page);
   }
 
   function renderSettings(container: HTMLElement) {

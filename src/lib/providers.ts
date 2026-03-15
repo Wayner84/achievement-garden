@@ -1,5 +1,5 @@
 import type { Achievement, Game, Platform, Settings } from './types';
-import { uid, now, clamp } from './util';
+import { uid, now } from './util';
 import { CATALOG_BY_ID, CATALOG_GAMES, cloneCatalogGameToLibrary } from './catalog';
 
 export type SearchResult = {
@@ -18,37 +18,6 @@ export type Provider = {
   search: (q: string, platforms: Platform[], settings: Settings) => Promise<SearchResult[]>;
   fetchAchievements: (r: SearchResult, settings: Settings) => Promise<Achievement[]>;
 };
-
-function demoAchievements(platform: Platform): Achievement[] {
-  const base = [
-    { title: 'First Steps', description: 'Complete the tutorial or first mission.' },
-    { title: 'Collector', description: 'Pick up 100 items.' },
-    { title: 'No Damage', description: 'Finish a level without taking damage.' },
-    { title: 'Speedrunner', description: 'Beat the game in under 3 hours.' },
-    { title: 'Completionist', description: 'Unlock every other achievement.' },
-  ];
-
-  return base.map((b, i) => {
-    const rarity = clamp(70 - i * 14 + (Math.random() * 10 - 5), 1, 95);
-    const a: Achievement = {
-      id: uid('ach'),
-      platform,
-      title: b.title,
-      description: b.description,
-      unlocked: false,
-      rarity,
-    };
-
-    if (platform === 'psn') {
-      const tiers = ['bronze', 'silver', 'gold', 'platinum'] as const;
-      a.psn = { tier: tiers[Math.min(i, 3)] };
-    }
-    if (platform === 'xbox') a.xbox = { gamerscore: [10, 20, 30, 50, 100][i] };
-    if (platform === 'steam') a.steam = { points: [5, 10, 15, 25, 50][i] };
-
-    return a;
-  });
-}
 
 const CatalogProvider: Provider = {
   id: 'catalog',
@@ -100,8 +69,8 @@ const SteamStoreProvider: Provider = {
   },
   async fetchAchievements(_r) {
     // Steam achievements require app-specific stats/achievements APIs and often need keys/auth.
-    // We provide a usable tracker immediately and leave a real fetch to the optional gateway.
-    return demoAchievements('steam');
+    // Return an empty list here rather than fake placeholder data.
+    return [];
   },
 };
 
@@ -128,7 +97,7 @@ const CloudflareGatewayProvider: Provider = {
     }));
   },
   async fetchAchievements(r, settings) {
-    if (!settings.dataGatewayUrl) return demoAchievements(r.platform);
+    if (!settings.dataGatewayUrl) return [];
     const url = new URL('/achievements', settings.dataGatewayUrl);
     url.searchParams.set('platform', r.platform);
     if (r.externalId) url.searchParams.set('externalId', r.externalId);
@@ -136,7 +105,7 @@ const CloudflareGatewayProvider: Provider = {
     url.searchParams.set('title', r.title);
 
     const res = await fetch(url.toString(), { headers: { 'accept': 'application/json' } });
-    if (!res.ok) return demoAchievements(r.platform);
+    if (!res.ok) return [];
     const json = (await res.json()) as any;
     const list = Array.isArray(json?.achievements) ? json.achievements : [];
 
@@ -153,7 +122,7 @@ const CloudflareGatewayProvider: Provider = {
       steam: a.steam,
     }));
 
-    return achievements.length ? achievements : demoAchievements(r.platform);
+    return achievements;
   },
 };
 

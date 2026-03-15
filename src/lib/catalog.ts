@@ -478,6 +478,7 @@ export function cloneCatalogGameToLibrary(g: CatalogGame): Game {
     title: g.title,
     artwork: g.artwork,
     platformDetails: g.platformDetails,
+    status: 'to-play',
     source: {
       kind: 'catalog',
       externalId: g.id,
