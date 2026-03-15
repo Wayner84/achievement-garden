@@ -22,7 +22,7 @@ export type Game = {
   title: string;
   artwork?: string;
   source?: {
-    kind: 'manual' | 'steam' | 'psnprofiles' | 'xboxachievements' | 'other';
+    kind: 'manual' | 'steam' | 'psnprofiles' | 'xboxachievements' | 'catalog' | 'other';
     externalId?: string;
     url?: string;
   };

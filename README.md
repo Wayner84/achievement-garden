@@ -4,10 +4,19 @@ Mobile-first achievement tracker web app (GitHub Pages friendly). Loud pink UI, 
 
 ## What you can do now
 - **Add games** (multi-select) via the **+** button
+- Search a built-in **starter catalog with real achievement/trophy data** for PlayStation, Xbox, and Steam
 - Track achievement progress per game (**tap an achievement to toggle locked/unlocked**)
 - Works **offline** (localStorage)
 - **Export/Import** your library (menu)
 - **Settings**: reduce motion, pink intensity, optional data gateway URL
+
+## Starter catalog (real seeded data)
+Current built-in catalog includes:
+- **PlayStation:** Astro's Playroom
+- **Xbox:** Halo Infinite
+- **Steam:** Hades
+
+These entries are seeded with real achievement/trophy names and descriptions from public sources stored in-repo as a starter dataset. The optional gateway can expand this later.
 
 ## Deploy (GitHub Pages)
 This repo includes a GitHub Actions workflow that builds to `dist/` and publishes to the `gh-pages` branch.

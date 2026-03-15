@@ -1,5 +1,6 @@
 import type { Achievement, Game, Platform, Settings } from './types';
 import { uid, now, clamp } from './util';
+import { CATALOG_BY_ID, CATALOG_GAMES, cloneCatalogGameToLibrary } from './catalog';
 
 export type SearchResult = {
   platform: Platform;
@@ -49,35 +50,30 @@ function demoAchievements(platform: Platform): Achievement[] {
   });
 }
 
-const DemoProvider: Provider = {
-  id: 'demo',
-  label: 'Demo data (offline)',
+const CatalogProvider: Provider = {
+  id: 'catalog',
+  label: 'Starter catalog (real data)',
   platforms: ['psn', 'xbox', 'steam'],
   async search(q, platforms) {
-    const seed = [
-      'Neon Warden',
-      'Pink Ritual',
-      'Trophy Garden',
-      'Achieve This!',
-      'Midnight Cartridge',
-      'Cherrywire Circuit',
-    ].filter((t) => t.toLowerCase().includes(q.toLowerCase()));
+    const needle = q.trim().toLowerCase();
+    if (!needle) return [];
 
-    const results: SearchResult[] = [];
-    for (const p of platforms) {
-      for (const title of seed.slice(0, 4)) {
-        results.push({
-          platform: p,
-          title,
-          artwork: `https://picsum.photos/seed/${encodeURIComponent(title + p)}/512/512`,
-          sourceKind: 'manual',
-        });
-      }
-    }
-    return results;
+    return CATALOG_GAMES
+      .filter((g) => platforms.includes(g.platform))
+      .filter((g) => g.title.toLowerCase().includes(needle))
+      .map((g) => ({
+        platform: g.platform,
+        title: g.title,
+        artwork: g.artwork,
+        externalId: g.id,
+        url: g.sourceUrl,
+        sourceKind: 'catalog',
+      }));
   },
   async fetchAchievements(r) {
-    return demoAchievements(r.platform);
+    const g = r.externalId ? CATALOG_BY_ID.get(r.externalId) : undefined;
+    if (!g) return [];
+    return g.achievements.map((a) => ({ ...a }));
   },
 };
 
@@ -161,7 +157,7 @@ const CloudflareGatewayProvider: Provider = {
   },
 };
 
-export const PROVIDERS: Provider[] = [CloudflareGatewayProvider, SteamStoreProvider, DemoProvider];
+export const PROVIDERS: Provider[] = [CatalogProvider, CloudflareGatewayProvider, SteamStoreProvider];
 
 export async function searchAll(q: string, platforms: Platform[], settings: Settings): Promise<SearchResult[]> {
   const q2 = q.trim();
@@ -195,6 +191,11 @@ export async function searchAll(q: string, platforms: Platform[], settings: Sett
 }
 
 export async function makeGameFromResult(r: SearchResult, settings: Settings): Promise<Game> {
+  if (r.sourceKind === 'catalog' && r.externalId) {
+    const g = CATALOG_BY_ID.get(r.externalId);
+    if (g) return cloneCatalogGameToLibrary(g);
+  }
+
   // Prefer gateway for achievements if set; else provider that produced the result can be ambiguous.
   const gateway = PROVIDERS.find((p) => p.id === 'gateway')!;
   const achievements = await gateway.fetchAchievements(r, settings);

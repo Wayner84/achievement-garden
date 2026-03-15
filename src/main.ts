@@ -155,7 +155,7 @@ function app() {
     function renderResults(list: SearchResult[]) {
       resultsWrap.replaceChildren();
       if (!list.length) {
-        resultsWrap.append(el('div', { class: 'empty' }, ['No results yet. Try typing a title, or enable the Demo provider.']));
+        resultsWrap.append(el('div', { class: 'empty' }, ['No results yet. Try typing a title from the starter catalog, or use Steam / a configured gateway.']));
         return;
       }
 
@@ -169,7 +169,7 @@ function app() {
           el('div', { class: 't' }, [r.title]),
           el('div', { class: 's' }, [
             el('span', { class: 'pill' }, [el('span', { class: `badge ${platformDotClass(r.platform)}` }), platformLabel(r.platform)]),
-            el('span', { class: 'pill' }, [r.sourceKind === 'steam' ? 'Steam' : r.sourceKind === 'manual' ? 'Demo/Manual' : 'Gateway']),
+            el('span', { class: 'pill' }, [r.sourceKind === 'steam' ? 'Steam' : r.sourceKind === 'catalog' ? 'Catalog' : 'Gateway']),
           ]),
         ]);
 
