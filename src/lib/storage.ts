@@ -11,26 +11,42 @@ export const DEFAULT_SETTINGS: Settings = {
   dataGatewayUrl: '',
 };
 
+function storageGet(key: string): string | null {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function storageSet(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // Ignore storage failures (private mode / blocked storage). App should still render.
+  }
+}
+
 export function loadGames(): Game[] {
-  const data = safeJsonParse<Game[]>(localStorage.getItem(KEY_GAMES));
+  const data = safeJsonParse<Game[]>(storageGet(KEY_GAMES));
   if (!data) return [];
   // Basic sanity
   return Array.isArray(data) ? data : [];
 }
 
 export function saveGames(games: Game[]): void {
-  localStorage.setItem(KEY_GAMES, JSON.stringify(games));
+  storageSet(KEY_GAMES, JSON.stringify(games));
 }
 
 export function loadSettings(): Settings {
   return {
     ...DEFAULT_SETTINGS,
-    ...(safeJsonParse<Settings>(localStorage.getItem(KEY_SETTINGS)) ?? {}),
+    ...(safeJsonParse<Settings>(storageGet(KEY_SETTINGS)) ?? {}),
   };
 }
 
 export function saveSettings(settings: Settings): void {
-  localStorage.setItem(KEY_SETTINGS, JSON.stringify(settings));
+  storageSet(KEY_SETTINGS, JSON.stringify(settings));
 }
 
 export function exportAll(): string {
