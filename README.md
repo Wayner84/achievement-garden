@@ -48,3 +48,24 @@ npm run dev
 npm run build
 npm run preview
 ```
+
+## Current-catalog ingestion
+The repo now includes a local ingestion script aimed at the **games already in `src/lib/catalog.ts`**.
+
+```bash
+npm run ingest:current-catalog
+```
+
+Useful flags:
+- `--platforms=psn,steam` — only run supported source types
+- `--resume` — skip games already marked successful in the local checkpoint file
+- `--limit=2` — test a small subset first
+- `--dry-run` — fetch and parse without rewriting `src/lib/catalog.ts`
+- `--delayMs=1500` — polite per-game delay for long unattended runs
+
+Checkpoint state is written to `.ingest-state/current-catalog-achievements.json` and ignored by git.
+
+### Source status
+- **Steam**: implemented via public Steam Community achievement pages
+- **PSN**: implemented for current catalog entries backed by PowerPyx and Eurogamer pages
+- **Xbox**: not automated yet; current TrueAchievements URLs are returning bot-protection responses from this environment, so Xbox needs a different source or a browser-rendered fetch path
