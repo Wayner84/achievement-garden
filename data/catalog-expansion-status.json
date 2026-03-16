@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "updatedAt": "2026-03-16T22:55:00Z",
+  "targets": {
+    "psn": 100,
+    "xbox": 100,
+    "steam": 100
+  },
+  "catalogued": {
+    "psn": [
+      "ps-astros-playroom",
+      "ps-marvels-spider-man-2",
+      "ps-god-of-war-ragnarok",
+      "ps-ratchet-clank-rift-apart",
+      "ps-horizon-forbidden-west",
+      "ps-ghost-of-tsushima",
+      "ps-the-last-of-us-part-i",
+      "ps-returnal",
+      "ps-demons-souls",
+      "ps-helldivers-2"
+    ],
+    "xbox": [
+      "xbox-halo-infinite",
+      "xbox-forza-horizon-5",
+      "xbox-sea-of-thieves",
+      "xbox-gears-5",
+      "xbox-ori-will-of-the-wisps",
+      "xbox-hi-fi-rush",
+      "xbox-psychonauts-2",
+      "xbox-grounded",
+      "xbox-pentiment",
+      "xbox-tunic"
+    ],
+    "steam": [
+      "steam-hades",
+      "steam-hollow-knight",
+      "steam-balatro",
+      "steam-celeste",
+      "steam-factorio",
+      "steam-satisfactory",
+      "steam-disco-elysium",
+      "steam-dave-the-diver",
+      "steam-kingdom-hearts-hd-15-25-remix",
+      "steam-kingdom-hearts-hd-28-final-chapter-prologue",
+      "steam-kingdom-hearts-iii-re-mind"
+    ]
+  },
+  "notes": {
+    "psn": "Current seeded PS catalog exists and should be expanded toward 100 with full trophy lists only.",
+    "xbox": "Current seeded Xbox catalog is now fully filled using MyGamerProfile as the first working source.",
+    "steam": "Current seeded Steam catalog exists; continue filling toward 100 with full achievement lists only."
+  }
+}

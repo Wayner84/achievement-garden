@@ -32,6 +32,23 @@ function computeProgress(g: Game): { unlocked: number; total: number; pct: numbe
   return { unlocked, total, pct };
 }
 
+function computeLibraryProgress(games: Game[]): { unlocked: number; total: number; pct: number; completedGames: number } {
+  const totals = games.reduce(
+    (acc, game) => {
+      const p = computeProgress(game);
+      acc.unlocked += p.unlocked;
+      acc.total += p.total;
+      if (p.total > 0 && p.unlocked === p.total) acc.completedGames += 1;
+      return acc;
+    },
+    { unlocked: 0, total: 0, completedGames: 0 },
+  );
+  return {
+    ...totals,
+    pct: totals.total ? (totals.unlocked / totals.total) * 100 : 0,
+  };
+}
+
 function sortGames(games: Game[]): Game[] {
   return [...games].sort((a, b) => b.updatedAt - a.updatedAt);
 }
@@ -349,7 +366,29 @@ function app() {
     topbarSub.textContent = `${games.length} game${games.length === 1 ? '' : 's'} in your library`;
     contextBtn.innerHTML = icon('plus');
 
+    const libraryProgress = computeLibraryProgress(games);
+
     container.append(el('div', { class: 'h1' }, ['Library']));
+
+    if (games.length) {
+      container.append(
+        el('div', { class: 'card', style: 'margin-bottom:14px' }, [
+          el('div', { class: 'game', style: 'flex-direction:column; gap:12px' }, [
+            el('div', { class: 'row2', style: 'align-items:flex-end' }, [
+              el('div', {}, [
+                el('div', { class: 'gtitle' }, ['Total progress']),
+                el('div', { class: 'gsub' }, [`${libraryProgress.completedGames}/${games.length} completed games`]),
+              ]),
+              el('div', { class: 'pill' }, [`${libraryProgress.unlocked}/${libraryProgress.total}`]),
+            ]),
+            el('div', { class: 'progress' }, [
+              el('div', { class: 'bar' }, [el('div', { class: 'fill', style: `width:${clamp(libraryProgress.pct, 0, 100)}%` })]),
+              el('div', { class: 'kpi' }, [`${formatPct(libraryProgress.pct)} unlocked across your whole library`]),
+            ]),
+          ]),
+        ]),
+      );
+    }
 
     if (!games.length) {
       container.append(
