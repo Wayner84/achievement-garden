@@ -57,7 +57,7 @@ export const CATALOG_GAMES: CatalogGame[] = [
     'ps-the-last-of-us-part-i',
     'The Last of Us Part I',
     'PS5',
-    'https://www.ign.com/wikis/the-last-of-us-part-1/The_Last_of_Us_Part_1_Trophy_Guide',
+    'https://www.powerpyx.com/the-last-of-us-ps5-remake-trophy-guide-roadmap/',
     [
       psAchievement('ps-tlou1-01', "It Can't Be For Nothing", 'Collect all Trophies.', 'platinum'),
       psAchievement('ps-tlou1-02', 'No Matter What', 'Complete The Last of Us: Part I.', 'gold'),

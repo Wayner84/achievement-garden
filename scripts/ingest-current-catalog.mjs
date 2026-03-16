@@ -141,6 +141,30 @@ function parseEurogamerAchievements(html) {
   return achievements;
 }
 
+function parseGameLeapAchievements(html) {
+  const headingRe = /<h3[^>]*>[\s\S]*?<strong>(Platinum|Gold|Silver|Bronze)<\/strong>[\s\S]*?<\/h3>/gi;
+  const achievements = [];
+  let match;
+  while ((match = headingRe.exec(html))) {
+    const tier = match[1].toLowerCase();
+    const start = headingRe.lastIndex;
+    const nextMatch = headingRe.exec(html);
+    const end = nextMatch ? nextMatch.index : html.length;
+    const block = html.slice(start, end);
+    for (const li of block.matchAll(/<li><strong>([\s\S]*?)<\/strong>\s*-\s*([\s\S]*?)<\/li>/gi)) {
+      achievements.push({
+        title: normalizeText(li[1]),
+        description: normalizeText(li[2]),
+        tier,
+        image: undefined,
+      });
+    }
+    if (nextMatch) headingRe.lastIndex = nextMatch.index;
+  }
+  if (!achievements.length) throw new Error('GameLeap parser found no trophies');
+  return achievements;
+}
+
 async function fetchText(url) {
   const res = await fetch(url, {
     headers: {
@@ -158,6 +182,7 @@ async function ingestGame(entry) {
   if (entry.platform === 'psn') {
     if (entry.url.includes('powerpyx.com')) return parsePowerPyxAchievements(html);
     if (entry.url.includes('eurogamer.net')) return parseEurogamerAchievements(html);
+    if (entry.url.includes('gameleap.com')) return parseGameLeapAchievements(html);
   }
   throw new Error(`No parser for ${entry.platform} source ${entry.url}`);
 }
