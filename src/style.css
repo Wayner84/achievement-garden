@@ -38,34 +38,46 @@
 }
 
 *{box-sizing:border-box}
-html,body{height:100%}
+html,body{min-height:100%}
+html{
+  background: linear-gradient(180deg, var(--bg1), var(--bg0));
+}
 body{
   margin:0;
   color:var(--ink);
-  background: radial-gradient(1200px 900px at 30% -20%, rgba(255,63,180,.26), transparent 55%),
-              radial-gradient(900px 800px at 110% 10%, rgba(155,92,255,.22), transparent 60%),
-              radial-gradient(900px 800px at 40% 120%, rgba(72,255,211,.12), transparent 60%),
-              linear-gradient(180deg, var(--bg1), var(--bg0));
+  background: transparent;
   font-family: "Archivo", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
   letter-spacing: .2px;
   overflow-x:hidden;
 }
 
-/* subtle grain */
-body::before{
+/* subtle grain + fixed atmospheric gradient layer */
+body::before,
+body::after{
   content:"";
   position:fixed; inset:0;
   pointer-events:none;
+}
+body::before{
+  background:
+    radial-gradient(1200px 900px at 30% -20%, rgba(255,63,180,.26), transparent 55%),
+    radial-gradient(900px 800px at 110% 10%, rgba(155,92,255,.22), transparent 60%),
+    radial-gradient(900px 800px at 40% 120%, rgba(72,255,211,.12), transparent 60%),
+    linear-gradient(180deg, var(--bg1), var(--bg0));
+  z-index:-2;
+}
+body::after{
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.33'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
   opacity:.08;
+  z-index:-1;
 }
 
 a{color:inherit}
 button, input{font:inherit}
 
-#app{min-height:100%;}
+#app{min-height:100%; position:relative; isolation:isolate;}
 
 .shell{
   min-height:100dvh;
@@ -141,7 +153,7 @@ button, input{font:inherit}
 
 .grid{
   display:grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(var(--grid-cols-mobile, 1), minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -156,8 +168,28 @@ button, input{font:inherit}
 }
 
 @media (min-width: 720px){
-  .grid{ grid-template-columns: 1fr 1fr; }
+  .grid{ grid-template-columns: repeat(var(--grid-cols-desktop, 2), minmax(0, 1fr)); }
 }
+
+[data-grid="compact"]{
+  --grid-cols-mobile: 2;
+  --grid-cols-desktop: 3;
+}
+[data-grid="default"]{
+  --grid-cols-mobile: 1;
+  --grid-cols-desktop: 2;
+}
+[data-grid="large"]{
+  --grid-cols-mobile: 1;
+  --grid-cols-desktop: 1;
+}
+[data-grid="compact"] .game{gap:10px; padding:10px}
+[data-grid="compact"] .art{width:72px; height:72px; border-radius:16px}
+[data-grid="compact"] .meta .gtitle{font-size:14px}
+[data-grid="compact"] .pill{padding:6px 8px; font-size:11px}
+[data-grid="large"] .game{gap:14px; padding:14px}
+[data-grid="large"] .art{width:104px; height:104px; border-radius:20px}
+[data-grid="large"] .meta .gtitle{font-size:16px}
 
 .card{
   background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));

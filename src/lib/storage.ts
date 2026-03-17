@@ -9,6 +9,8 @@ export const DEFAULT_SETTINGS: Settings = {
   pinkIntensity: 'loud',
   defaultPlatforms: ['psn', 'xbox', 'steam'],
   dataGatewayUrl: '',
+  gridSize: 'default',
+  collapsedShelves: {},
 };
 
 function storageGet(key: string): string | null {

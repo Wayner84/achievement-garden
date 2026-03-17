@@ -47,9 +47,16 @@ async function fetchText(url) {
   return await res.text();
 }
 function parseSteamAchievements(html) {
-  const rows = [...html.matchAll(/<div class="achieveRow[\s\S]*?<h3>([\s\S]*?)<\/h3>\s*<h5>([\s\S]*?)<\/h5>[\s\S]*?<div class="achievePercent">([\d.]+)%<\/div>[\s\S]*?<img src="([^"]+)"/g)];
+  const rows = [...html.matchAll(/<div class="achieveRow[^\"]*">([\s\S]*?)<div style="clear: both;">\s*<\/div>\s*<\/div>/g)];
   if (!rows.length) throw new Error('Steam parser found no achievements');
-  return rows.map((m) => ({ title: normalizeText(m[1]), description: normalizeText(m[2]).replace(/\.$/, ''), rarity: Number(m[3]), image: m[4] }));
+  return rows.map((m) => {
+    const block = m[1];
+    const image = block.match(/<img src="([^"]+)"/i)?.[1];
+    const rarity = Number(block.match(/<div class="achievePercent">([\d.]+)%<\/div>/i)?.[1] ?? 'NaN');
+    const title = normalizeText(block.match(/<h3>([\s\S]*?)<\/h3>/i)?.[1] ?? '');
+    const description = normalizeText(block.match(/<h5>([\s\S]*?)<\/h5>/i)?.[1] ?? '').replace(/\.$/, '');
+    return { title, description, rarity, image };
+  }).filter((a) => a.title && Number.isFinite(a.rarity) && a.image);
 }
 function parsePowerPyxAchievements(html) {
   const headingIndex = html.search(/<h2[^>]*>[^<]*Trophy Guide<\/h2>/i);

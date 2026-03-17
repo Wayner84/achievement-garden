@@ -601,6 +601,27 @@ function app() {
       render();
     };
 
+    const gridSize = el('button', { class: 'navbtn' }, [
+      el('span', {}, ['Game grid size']),
+      el('span', { style: 'opacity:.75' }, [settings.gridSize === 'compact' ? 'Compact' : settings.gridSize === 'large' ? 'Large' : 'Default']),
+    ]);
+    gridSize.onclick = () => {
+      settings.gridSize = settings.gridSize === 'default' ? 'compact' : settings.gridSize === 'compact' ? 'large' : 'default';
+      saveSettings(settings);
+      applySettingsToDom(settings);
+      render();
+    };
+
+    const collapseReset = el('button', { class: 'navbtn' }, [
+      el('span', {}, ['Reset shelf drawers']),
+      el('span', { style: 'opacity:.75' }, ['Open all']),
+    ]);
+    collapseReset.onclick = () => {
+      settings.collapsedShelves = {};
+      saveSettings(settings);
+      render();
+    };
+
     const gateway = el('div', { style: 'display:grid; gap:8px' }, [
       el('div', { style: 'font-weight:700' }, ['Data gateway (optional)']),
       el('div', { style: 'color: rgba(247,239,255,.62); font-size:12px; line-height:1.35' }, [
@@ -632,6 +653,8 @@ function app() {
       el('div', { class: 'h1', style: 'margin:0' }, ['Tuning']),
       reduce,
       theme,
+      gridSize,
+      collapseReset,
       gateway,
       el('div', { style: 'height:1px; background: rgba(255,255,255,.08); margin: 6px 0' }),
       danger,
