@@ -3,7 +3,8 @@ import type { Game, Platform, Settings, Achievement } from './lib/types';
 import { loadGames, saveGames, loadSettings, saveSettings, exportAll, importAll } from './lib/storage';
 import { el, icon, platformLabel, platformDotClass, psnTierLabel, gamePlatformDetailLabel, gameStatusLabel, nextGameStatus } from './lib/ui';
 import { searchAll, makeGameFromResult, type SearchResult } from './lib/providers';
-import { clamp, formatPct, now } from './lib/util';
+import { fetchOwnedSteamGames, fetchSteamAchievementsForProfileApp, resolveSteamProfile, steamGameLooksSyncable, syncSteamGameFromProfile } from './lib/steam';
+import { clamp, formatPct, now, uid } from './lib/util';
 
 type Route =
   | { name: 'library' }
@@ -361,6 +362,125 @@ function app() {
     ta.focus();
   };
 
+  async function syncSingleSteamGame(game: Game) {
+    if (!settings.steamProfileUrl) {
+      toast('Set your Steam profile URL in Settings first.');
+      setRoute({ name: 'settings' });
+      return;
+    }
+    try {
+      const profile = await resolveSteamProfile(settings.steamProfileUrl);
+      const result = await syncSteamGameFromProfile(game, profile);
+      saveGames(games);
+      toast(`Synced ${game.title}: ${result.matchedCount}/${game.achievements.length} unlocked.`);
+      render();
+    } catch (e: any) {
+      toast(e?.message ?? 'Steam sync failed.');
+    }
+  }
+
+  async function syncAllSteamGames() {
+    const syncableGames = games.filter(steamGameLooksSyncable);
+    if (!syncableGames.length) {
+      toast('No syncable Steam games in your library yet.');
+      return;
+    }
+    if (!settings.steamProfileUrl) {
+      toast('Set your Steam profile URL in Settings first.');
+      setRoute({ name: 'settings' });
+      return;
+    }
+
+    try {
+      const profile = await resolveSteamProfile(settings.steamProfileUrl);
+      let ok = 0;
+      for (const game of syncableGames) {
+        try {
+          await syncSteamGameFromProfile(game, profile);
+          ok += 1;
+        } catch {
+          // keep going; some owned games may not expose public stats pages
+        }
+      }
+      saveGames(games);
+      toast(`Steam sync finished: ${ok}/${syncableGames.length} games updated.`);
+      render();
+    } catch (e: any) {
+      toast(e?.message ?? 'Steam sync failed.');
+    }
+  }
+
+  async function importOwnedSteamLibrary() {
+    if (!settings.steamProfileUrl) {
+      toast('Add your Steam profile URL first.');
+      setRoute({ name: 'settings' });
+      return;
+    }
+    if (!settings.steamWebApiKey) {
+      toast('Add a Steam Web API key first.');
+      setRoute({ name: 'settings' });
+      return;
+    }
+
+    try {
+      const profile = await resolveSteamProfile(settings.steamProfileUrl);
+      const ownedGames = await fetchOwnedSteamGames(profile, settings.steamWebApiKey);
+      if (!ownedGames.length) {
+        toast('No owned Steam games came back from Steam.');
+        return;
+      }
+
+      let added = 0;
+      let updated = 0;
+      for (const owned of ownedGames) {
+        const existing = games.find((g) => g.platform === 'steam' && g.source?.externalId === owned.appId);
+        try {
+          const achievements = await fetchSteamAchievementsForProfileApp(profile, owned.appId);
+          if (existing) {
+            existing.achievements = achievements;
+            existing.artwork = existing.artwork ?? owned.artwork;
+            existing.source = {
+              kind: 'steam',
+              externalId: owned.appId,
+              url: `${profile.profileBase}/stats/${owned.appId}/achievements/`,
+            };
+            existing.updatedAt = now();
+            updated += 1;
+            continue;
+          }
+
+          games = sortGames([
+            {
+              id: uid('game'),
+              platform: 'steam',
+              title: owned.title,
+              artwork: owned.artwork,
+              status: 'to-play',
+              source: {
+                kind: 'steam',
+                externalId: owned.appId,
+                url: `${profile.profileBase}/stats/${owned.appId}/achievements/`,
+              },
+              achievements,
+              createdAt: now(),
+              updatedAt: now(),
+            },
+            ...games,
+          ]);
+          added += 1;
+        } catch {
+          // Skip apps whose public stats page cannot be parsed.
+        }
+      }
+
+      saveGames(games);
+      toast(`Steam library import finished: ${added} added, ${updated} updated.`);
+      render();
+    } catch (e: any) {
+      toast(e?.message ?? 'Steam library import failed.');
+    }
+  }
+
   function renderLibrary(container: HTMLElement) {
     topbarTitle.textContent = 'Achievement Garden';
     topbarSub.textContent = `${games.length} game${games.length === 1 ? '' : 's'} in your library`;
@@ -371,6 +491,7 @@ function app() {
     container.append(el('div', { class: 'h1' }, ['Library']));
 
     if (games.length) {
+      const syncableSteamCount = games.filter(steamGameLooksSyncable).length;
       container.append(
         el('div', { class: 'card', style: 'margin-bottom:14px' }, [
           el('div', { class: 'game', style: 'flex-direction:column; gap:12px' }, [
@@ -384,6 +505,12 @@ function app() {
             el('div', { class: 'progress' }, [
               el('div', { class: 'bar' }, [el('div', { class: 'fill', style: `width:${clamp(libraryProgress.pct, 0, 100)}%` })]),
               el('div', { class: 'kpi' }, [`${formatPct(libraryProgress.pct)} unlocked across your whole library`]),
+            ]),
+            el('div', { style: 'display:flex; gap:10px; flex-wrap:wrap' }, [
+              ...(syncableSteamCount ? [
+                el('button', { class: 'btn', onclick: () => { void syncAllSteamGames(); } }, [`Sync all Steam games (${syncableSteamCount})`]),
+              ] : []),
+              el('button', { class: 'btn', onclick: () => { void importOwnedSteamLibrary(); } }, ['Import owned Steam library']),
             ]),
           ]),
         ]),
@@ -410,11 +537,31 @@ function app() {
     for (const group of groups) {
       const items = sortGames(games).filter((g) => (g.status ?? 'to-play') === group.key);
       const section = el('section', { class: 'shelf' });
-      const header = el('div', { class: 'shelfhead' }, [
+      const isCollapsed = Boolean(settings.collapsedShelves[group.key]);
+      const header = el('button', {
+        class: 'shelfhead',
+        style: 'width:100%; background:transparent; border:0; padding:0; text-align:left; cursor:pointer',
+        onclick: () => {
+          settings.collapsedShelves = {
+            ...settings.collapsedShelves,
+            [group.key]: !Boolean(settings.collapsedShelves[group.key]),
+          };
+          saveSettings(settings);
+          render();
+        },
+      }, [
         el('div', { class: 'h1', style: 'margin: 6px 0 8px' }, [group.label]),
-        el('span', { class: 'pill' }, [`${items.length}`]),
+        el('div', { style: 'display:flex; align-items:center; gap:8px' }, [
+          el('span', { class: 'pill' }, [`${items.length}`]),
+          el('span', { class: 'pill' }, [isCollapsed ? 'Show' : 'Hide']),
+        ]),
       ]);
       section.append(header);
+
+      if (isCollapsed) {
+        container.append(section);
+        continue;
+      }
 
       if (!items.length) {
         section.append(el('div', { class: 'empty' }, [`No games in ${group.label.toLowerCase()} yet.`]));
@@ -522,6 +669,9 @@ function app() {
             el('div', { class: 'kpi' }, [`${prog.unlocked}/${prog.total}  ${formatPct(prog.pct)}`]),
           ]),
           el('div', { style: 'margin-top:10px; display:flex; gap:10px; flex-wrap:wrap' }, [
+            ...(steamGameLooksSyncable(g) ? [
+              el('button', { class: 'btn', onclick: () => { void syncSingleSteamGame(g); } }, ['Sync Steam achievements']),
+            ] : []),
             el('button', { class: 'btn danger', onclick: () => {
               if (!confirm('Remove this game from your library?')) return;
               games = games.filter((x) => x.id !== g.id);
@@ -622,6 +772,42 @@ function app() {
       render();
     };
 
+    const steamProfile = el('div', { style: 'display:grid; gap:8px' }, [
+      el('div', { style: 'font-weight:700' }, ['Steam profile sync']),
+      el('div', { style: 'color: rgba(247,239,255,.62); font-size:12px; line-height:1.35' }, [
+        'Paste your public Steam Community profile URL to enable per-game sync and library import. Nothing is prefilled now.',
+      ]),
+    ]);
+    const steamProfileInput = el('input', { class: 'input', placeholder: 'Enter your Steam Community profile URL', value: settings.steamProfileUrl }) as HTMLInputElement;
+    const steamProfileSave = el('button', { class: 'btn primary' }, ['Save Steam profile']);
+    steamProfileSave.onclick = async () => {
+      try {
+        const profile = await resolveSteamProfile(steamProfileInput.value.trim());
+        settings.steamProfileUrl = profile.profileUrl;
+        saveSettings(settings);
+        toast(`Saved Steam profile${profile.displayName ? ` for ${profile.displayName}` : ''}.`);
+        render();
+      } catch (e: any) {
+        toast(e?.message ?? 'Could not validate Steam profile.');
+      }
+    };
+    steamProfile.append(steamProfileInput, steamProfileSave);
+
+    const steamApi = el('div', { style: 'display:grid; gap:8px' }, [
+      el('div', { style: 'font-weight:700' }, ['Steam Web API key (for owned-library import)']),
+      el('div', { style: 'color: rgba(247,239,255,.62); font-size:12px; line-height:1.35' }, [
+        'Needed for importing all owned Steam games. This is stored locally in the browser for now.',
+      ]),
+    ]);
+    const steamApiInput = el('input', { class: 'input', placeholder: 'Enter Steam Web API key', value: settings.steamWebApiKey }) as HTMLInputElement;
+    const steamApiSave = el('button', { class: 'btn primary' }, ['Save Steam API key']);
+    steamApiSave.onclick = () => {
+      settings.steamWebApiKey = steamApiInput.value.trim();
+      saveSettings(settings);
+      toast('Saved.');
+    };
+    steamApi.append(steamApiInput, steamApiSave);
+
     const gateway = el('div', { style: 'display:grid; gap:8px' }, [
       el('div', { style: 'font-weight:700' }, ['Data gateway (optional)']),
       el('div', { style: 'color: rgba(247,239,255,.62); font-size:12px; line-height:1.35' }, [
@@ -655,6 +841,8 @@ function app() {
       theme,
       gridSize,
       collapseReset,
+      steamProfile,
+      steamApi,
       gateway,
       el('div', { style: 'height:1px; background: rgba(255,255,255,.08); margin: 6px 0' }),
       danger,

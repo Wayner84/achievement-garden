@@ -9,6 +9,8 @@ export const DEFAULT_SETTINGS: Settings = {
   pinkIntensity: 'loud',
   defaultPlatforms: ['psn', 'xbox', 'steam'],
   dataGatewayUrl: '',
+  steamProfileUrl: '',
+  steamWebApiKey: '',
   gridSize: 'default',
   collapsedShelves: {},
 };

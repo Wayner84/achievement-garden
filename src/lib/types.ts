@@ -45,6 +45,8 @@ export type Settings = {
   pinkIntensity: 'soft' | 'loud';
   defaultPlatforms: Platform[];
   dataGatewayUrl: string; // optional Cloudflare Worker / gateway
+  steamProfileUrl: string;
+  steamWebApiKey: string;
   gridSize: 'compact' | 'default' | 'large';
   collapsedShelves: Partial<Record<GameStatus, boolean>>;
 };
