@@ -1,6 +1,11 @@
 import type { Achievement, Game, Platform, Settings } from './types';
 import { uid, now } from './util';
-import { CATALOG_BY_ID, CATALOG_GAMES, cloneCatalogGameToLibrary } from './catalog';
+
+let catalogPromise: Promise<typeof import('./catalog')> | null = null;
+function loadCatalog() {
+  catalogPromise ??= import('./catalog');
+  return catalogPromise;
+}
 
 export type SearchResult = {
   platform: Platform;
@@ -26,6 +31,7 @@ const CatalogProvider: Provider = {
   async search(q, platforms) {
     const needle = q.trim().toLowerCase();
     if (!needle) return [];
+    const { CATALOG_GAMES } = await loadCatalog();
 
     return CATALOG_GAMES
       .filter((g) => platforms.includes(g.platform))
@@ -40,6 +46,7 @@ const CatalogProvider: Provider = {
       }));
   },
   async fetchAchievements(r) {
+    const { CATALOG_BY_ID } = await loadCatalog();
     const g = r.externalId ? CATALOG_BY_ID.get(r.externalId) : undefined;
     if (!g) return [];
     return g.achievements.map((a) => ({ ...a }));
@@ -161,6 +168,7 @@ export async function searchAll(q: string, platforms: Platform[], settings: Sett
 
 export async function makeGameFromResult(r: SearchResult, settings: Settings): Promise<Game> {
   if (r.sourceKind === 'catalog' && r.externalId) {
+    const { CATALOG_BY_ID, cloneCatalogGameToLibrary } = await loadCatalog();
     const g = CATALOG_BY_ID.get(r.externalId);
     if (g) return cloneCatalogGameToLibrary(g);
   }

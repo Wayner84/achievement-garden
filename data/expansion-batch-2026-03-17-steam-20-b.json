@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "batchName": "steam-20-wave-2026-03-17-b",
+  "items": [
+    {"platform":"steam","id":"steam-phasmophobia","title":"Phasmophobia","appId":"739630"},
+    {"platform":"steam","id":"steam-raft","title":"Raft","appId":"648800"},
+    {"platform":"steam","id":"steam-euro-truck-simulator-2","title":"Euro Truck Simulator 2","appId":"227300"},
+    {"platform":"steam","id":"steam-american-truck-simulator","title":"American Truck Simulator","appId":"270880"},
+    {"platform":"steam","id":"steam-house-flipper","title":"House Flipper","appId":"613100"},
+    {"platform":"steam","id":"steam-black-mesa","title":"Black Mesa","appId":"362890"},
+    {"platform":"steam","id":"steam-left-4-dead-2","title":"Left 4 Dead 2","appId":"550"},
+    {"platform":"steam","id":"steam-left-4-dead","title":"Left 4 Dead","appId":"500"},
+    {"platform":"steam","id":"steam-7-days-to-die","title":"7 Days to Die","appId":"251570"},
+    {"platform":"steam","id":"steam-the-long-dark","title":"The Long Dark","appId":"305620"},
+    {"platform":"steam","id":"steam-lies-of-p","title":"Lies of P","appId":"1627720"},
+    {"platform":"steam","id":"steam-warframe","title":"Warframe","appId":"230410"},
+    {"platform":"steam","id":"steam-among-us","title":"Among Us","appId":"945360"},
+    {"platform":"steam","id":"steam-buckshot-roulette","title":"Buckshot Roulette","appId":"2835570"},
+    {"platform":"steam","id":"steam-content-warning","title":"Content Warning","appId":"2881650"},
+    {"platform":"steam","id":"steam-sons-of-the-forest","title":"Sons Of The Forest","appId":"1326470"},
+    {"platform":"steam","id":"steam-dying-light","title":"Dying Light","appId":"239140"},
+    {"platform":"steam","id":"steam-dying-light-2","title":"Dying Light 2 Stay Human: Reloaded Edition","appId":"534380"},
+    {"platform":"steam","id":"steam-farming-simulator-22","title":"Farming Simulator 22","appId":"1248130"},
+    {"platform":"steam","id":"steam-helldivers-2-steam","title":"HELLDIVERS 2","appId":"553850"}
+  ]
+}

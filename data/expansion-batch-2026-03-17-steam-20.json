@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "batchName": "steam-20-wave-2026-03-17",
+  "items": [
+    {"platform":"steam","id":"steam-the-forest","title":"The Forest","appId":"242760"},
+    {"platform":"steam","id":"steam-breathedge","title":"Breathedge","appId":"738520"},
+    {"platform":"steam","id":"steam-portal-stories-mel","title":"Portal Stories: Mel","appId":"317400"},
+    {"platform":"steam","id":"steam-dead-rising-deluxe-remaster","title":"Dead Rising Deluxe Remaster","appId":"2527390"},
+    {"platform":"steam","id":"steam-dead-rising-2","title":"Dead Rising 2","appId":"45740"},
+    {"platform":"steam","id":"steam-baldurs-gate-3","title":"Baldur's Gate 3","appId":"1086940"},
+    {"platform":"steam","id":"steam-counter-strike-source","title":"Counter-Strike: Source","appId":"240"},
+    {"platform":"steam","id":"steam-pubg-battlegrounds","title":"PUBG: BATTLEGROUNDS","appId":"578080"},
+    {"platform":"steam","id":"steam-rust","title":"Rust","appId":"252490"},
+    {"platform":"steam","id":"steam-team-fortress-2","title":"Team Fortress 2","appId":"440"},
+    {"platform":"steam","id":"steam-counter-strike-2","title":"Counter-Strike 2","appId":"730"},
+    {"platform":"steam","id":"steam-grand-theft-auto-v-legacy","title":"Grand Theft Auto V Legacy","appId":"271590"},
+    {"platform":"steam","id":"steam-apex-legends","title":"Apex Legends","appId":"1172470"},
+    {"platform":"steam","id":"steam-destiny-2","title":"Destiny 2","appId":"1085660"},
+    {"platform":"steam","id":"steam-wallpaper-engine","title":"Wallpaper Engine","appId":"431960"},
+    {"platform":"steam","id":"steam-hades-ii","title":"Hades II","appId":"1145360"},
+    {"platform":"steam","id":"steam-halo-infinite-steam","title":"Halo Infinite","appId":"1240440"},
+    {"platform":"steam","id":"steam-red-dead-redemption-2","title":"Red Dead Redemption 2","appId":"1174180"},
+    {"platform":"steam","id":"steam-rainbow-six-siege","title":"Tom Clancy's Rainbow Six Siege","appId":"359550"},
+    {"platform":"steam","id":"steam-devil-may-cry-5","title":"Devil May Cry 5","appId":"601150"}
+  ]
+}
