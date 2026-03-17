@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "batchName": "steam-20-wave-2026-03-17-c",
+  "items": [
+    {"platform":"steam","id":"steam-god-of-war","title":"God of War","appId":"1593500"},
+    {"platform":"steam","id":"steam-marvels-spider-man-remastered","title":"Marvel’s Spider-Man Remastered","appId":"1817070"},
+    {"platform":"steam","id":"steam-marvels-spider-man-2","title":"Marvel’s Spider-Man 2","appId":"2651280"},
+    {"platform":"steam","id":"steam-payday-2","title":"PAYDAY 2","appId":"218620"},
+    {"platform":"steam","id":"steam-halo-the-master-chief-collection","title":"Halo: The Master Chief Collection","appId":"976730"},
+    {"platform":"steam","id":"steam-starfield","title":"Starfield","appId":"1716740"},
+    {"platform":"steam","id":"steam-resident-evil-4-steam","title":"Resident Evil 4","appId":"2050650"},
+    {"platform":"steam","id":"steam-hogwarts-legacy","title":"Hogwarts Legacy","appId":"990080"},
+    {"platform":"steam","id":"steam-monster-hunter-world","title":"Monster Hunter: World","appId":"582010"},
+    {"platform":"steam","id":"steam-danganronpa-2","title":"Danganronpa 2: Goodbye Despair","appId":"413410"},
+    {"platform":"steam","id":"steam-danganronpa-ultra-despair-girls","title":"Danganronpa Another Episode: Ultra Despair Girls","appId":"413420"},
+    {"platform":"steam","id":"steam-danganronpa-v3","title":"Danganronpa V3: Killing Harmony","appId":"567640"},
+    {"platform":"steam","id":"steam-persona-4-golden","title":"Persona 4 Golden","appId":"1113000"},
+    {"platform":"steam","id":"steam-persona-5-royal","title":"Persona 5 Royal","appId":"1687950"},
+    {"platform":"steam","id":"steam-like-a-dragon-infinite-wealth","title":"Like a Dragon: Infinite Wealth","appId":"1805480"},
+    {"platform":"steam","id":"steam-yakuza-like-a-dragon","title":"Yakuza: Like a Dragon","appId":"1235140"},
+    {"platform":"steam","id":"steam-dark-souls-3","title":"DARK SOULS III","appId":"374320"},
+    {"platform":"steam","id":"steam-dark-souls-2","title":"DARK SOULS II","appId":"236430"},
+    {"platform":"steam","id":"steam-dark-souls-remastered","title":"DARK SOULS: REMASTERED","appId":"570940"},
+    {"platform":"steam","id":"steam-armored-core-6","title":"ARMORED CORE VI FIRES OF RUBICON","appId":"1888160"}
+  ]
+}

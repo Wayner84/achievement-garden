@@ -9,13 +9,23 @@ import { clamp, formatPct, now, uid } from './lib/util';
 type Route =
   | { name: 'library' }
   | { name: 'game'; id: string }
-  | { name: 'settings' };
+  | { name: 'settings' }
+  | { name: 'catalog' }
+  | { name: 'catalog-game'; id: string };
+
+let catalogModulePromise: Promise<typeof import('./lib/catalog')> | null = null;
+function loadCatalogModule() {
+  catalogModulePromise ??= import('./lib/catalog');
+  return catalogModulePromise;
+}
 
 function parseRoute(): Route {
   const hash = location.hash.replace(/^#/, '');
   if (!hash) return { name: 'library' };
   const [a, b] = hash.split('/');
   if (a === 'game' && b) return { name: 'game', id: b };
+  if (a === 'catalog' && b) return { name: 'catalog-game', id: b };
+  if (a === 'catalog') return { name: 'catalog' };
   if (a === 'settings') return { name: 'settings' };
   return { name: 'library' };
 }
@@ -23,7 +33,9 @@ function parseRoute(): Route {
 function setRoute(r: Route): void {
   if (r.name === 'library') location.hash = '';
   if (r.name === 'settings') location.hash = '#settings';
+  if (r.name === 'catalog') location.hash = '#catalog';
   if (r.name === 'game') location.hash = `#game/${encodeURIComponent(r.id)}`;
+  if (r.name === 'catalog-game') location.hash = `#catalog/${encodeURIComponent(r.id)}`;
 }
 
 function computeProgress(g: Game): { unlocked: number; total: number; pct: number } {
@@ -107,6 +119,10 @@ function app() {
     el('span', {}, ['Add game']),
     el('span', { style: 'opacity:.75' }, ['+']),
   ]);
+  const navCatalog = el('button', { class: 'navbtn' }, [
+    el('span', {}, ['Browse all games']),
+    el('span', { style: 'opacity:.75' }, ['→']),
+  ]);
   const navSettings = el('button', { class: 'navbtn' }, [
     el('span', {}, ['Settings']),
     el('span', { style: 'opacity:.75' }, ['→']),
@@ -120,7 +136,7 @@ function app() {
     el('span', { style: 'opacity:.75' }, ['↑']),
   ]);
 
-  drawer.append(navAdd, navSettings, navExport, navImport);
+  drawer.append(navAdd, navCatalog, navSettings, navExport, navImport);
 
   function setDrawer(open: boolean) {
     drawerOpen = open;
@@ -300,6 +316,10 @@ function app() {
   };
 
   navAdd.onclick = openAddGameSheet;
+  navCatalog.onclick = () => {
+    setDrawer(false);
+    setRoute({ name: 'catalog' });
+  };
   navSettings.onclick = () => {
     setDrawer(false);
     setRoute({ name: 'settings' });
@@ -361,6 +381,24 @@ function app() {
     document.body.append(sheet);
     ta.focus();
   };
+
+  async function addCatalogGameToLibrary(catalogId: string) {
+    const { CATALOG_BY_ID, cloneCatalogGameToLibrary } = await loadCatalogModule();
+    const sourceGame = CATALOG_BY_ID.get(catalogId);
+    if (!sourceGame) {
+      toast('Catalog game not found.');
+      return;
+    }
+    const alreadyInLibrary = games.some((g) => g.source?.kind === 'catalog' && g.source.externalId === catalogId);
+    if (alreadyInLibrary) {
+      toast('This game is already in your library.');
+      return;
+    }
+    games = sortGames([cloneCatalogGameToLibrary(sourceGame), ...games]);
+    saveGames(games);
+    toast(`Added ${sourceGame.title}.`);
+    render();
+  }
 
   async function syncSingleSteamGame(game: Game) {
     if (!settings.steamProfileUrl) {
@@ -540,7 +578,7 @@ function app() {
       const isCollapsed = Boolean(settings.collapsedShelves[group.key]);
       const header = el('button', {
         class: 'shelfhead',
-        style: 'width:100%; background:transparent; border:0; padding:0; text-align:left; cursor:pointer',
+        style: 'width:100%; background:transparent; border:0; padding:0; text-align:left; cursor:pointer; color:rgba(247,239,255,.96)',
         onclick: () => {
           settings.collapsedShelves = {
             ...settings.collapsedShelves,
@@ -720,6 +758,127 @@ function app() {
     container.append(page);
   }
 
+  async function renderCatalog(container: HTMLElement) {
+    container.replaceChildren();
+    topbarTitle.textContent = 'Catalog';
+    topbarSub.textContent = 'Browse every game in the database';
+    contextBtn.innerHTML = icon('arrow-left');
+    contextBtn.onclick = () => setRoute({ name: 'library' });
+
+    const { CATALOG_GAMES } = await loadCatalogModule();
+    const sorted = [...CATALOG_GAMES].sort((a, b) => a.title.localeCompare(b.title));
+    const counts = sorted.reduce((acc, game) => {
+      acc[game.platform] += 1;
+      return acc;
+    }, { psn: 0, xbox: 0, steam: 0 });
+
+    container.append(el('div', { class: 'h1' }, ['All games']));
+    container.append(
+      el('div', { class: 'card', style: 'margin-bottom:14px' }, [
+        el('div', { class: 'game', style: 'flex-direction:column; gap:12px' }, [
+          el('div', { class: 'row2', style: 'align-items:flex-end' }, [
+            el('div', {}, [
+              el('div', { class: 'gtitle' }, ['Database overview']),
+              el('div', { class: 'gsub' }, [`${sorted.length} catalogued games ready to browse`]),
+            ]),
+            el('div', { class: 'pill' }, [String(sorted.length)]),
+          ]),
+          el('div', { style: 'display:flex; gap:10px; flex-wrap:wrap' }, [
+            el('span', { class: 'pill' }, [`Steam ${counts.steam}`]),
+            el('span', { class: 'pill' }, [`PlayStation ${counts.psn}`]),
+            el('span', { class: 'pill' }, [`Xbox ${counts.xbox}`]),
+          ]),
+        ]),
+      ]),
+    );
+
+    const grid = el('div', { class: 'grid' });
+    for (const g of sorted) {
+      const card = el('div', { class: 'card' });
+      const row = el('div', { class: 'game' });
+      const art = el('div', { class: 'art' });
+      art.append(el('img', { src: g.artwork ?? `https://picsum.photos/seed/${encodeURIComponent(g.title)}/512/512`, alt: '' }));
+      const inLibrary = games.some((game) => game.source?.kind === 'catalog' && game.source.externalId === g.id);
+      const meta = el('div', { class: 'meta' }, [
+        el('div', { class: 'gtitle' }, [g.title]),
+        el('div', { class: 'gsub' }, [
+          el('span', { class: 'pill' }, [el('span', { class: `badge ${platformDotClass(g.platform)}` }), platformLabel(g.platform)]),
+          el('span', { class: 'pill' }, [`${g.achievements.length} achievements`]),
+          ...(inLibrary ? [el('span', { class: 'pill' }, ['In library'])] : []),
+        ]),
+      ]);
+      row.append(art, meta);
+      card.append(row);
+      card.onclick = () => setRoute({ name: 'catalog-game', id: g.id });
+      grid.append(card);
+    }
+    container.append(grid);
+  }
+
+  async function renderCatalogGame(container: HTMLElement, id: string) {
+    container.replaceChildren();
+    const { CATALOG_BY_ID, cloneCatalogGameToLibrary } = await loadCatalogModule();
+    const g = CATALOG_BY_ID.get(id);
+    if (!g) {
+      container.append(el('div', { class: 'empty' }, ['Catalog game not found.']));
+      return;
+    }
+
+    const preview = cloneCatalogGameToLibrary(g);
+    const inLibrary = games.some((game) => game.source?.kind === 'catalog' && game.source.externalId === g.id);
+    const prog = computeProgress(preview);
+    topbarTitle.textContent = g.title;
+    topbarSub.textContent = `${platformLabel(g.platform)} • ${prog.total} achievements`;
+    contextBtn.innerHTML = icon('arrow-left');
+    contextBtn.onclick = () => setRoute({ name: 'catalog' });
+
+    const platformDetail = gamePlatformDetailLabel(preview);
+    const page = el('div', { class: 'detailpage' });
+    const header = el('div', { class: 'card detailhero', style: 'margin-bottom:12px' }, [
+      el('div', { class: 'game' }, [
+        el('div', { class: 'art', style: 'width: 96px; height: 96px' }, [
+          el('img', { src: g.artwork ?? `https://picsum.photos/seed/${encodeURIComponent(g.title + g.platform)}/512/512`, alt: '' }),
+        ]),
+        el('div', { class: 'meta' }, [
+          el('div', { class: 'gtitle' }, [g.title]),
+          el('div', { class: 'gsub' }, [
+            el('span', { class: 'pill' }, [el('span', { class: `badge ${platformDotClass(g.platform)}` }), platformLabel(g.platform)]),
+            ...(platformDetail ? [el('span', { class: 'pill' }, [platformDetail])] : []),
+            el('span', { class: 'pill' }, [`${g.achievements.length} achievements`]),
+            ...(inLibrary ? [el('span', { class: 'pill' }, ['Already in library'])] : []),
+            g.sourceUrl ? el('a', { class: 'pill', href: g.sourceUrl, target: '_blank', rel: 'noreferrer' }, ['source ↗']) : null,
+          ].filter(Boolean) as HTMLElement[]),
+          el('div', { style: 'margin-top:10px; display:flex; gap:10px; flex-wrap:wrap' }, [
+            ...(inLibrary ? [] : [el('button', { class: 'btn primary', onclick: () => { void addCatalogGameToLibrary(g.id); } }, ['Add to library'])]),
+            el('button', { class: 'btn', onclick: () => setRoute({ name: 'catalog' }) }, ['Back to catalog']),
+          ]),
+        ]),
+      ]),
+    ]);
+    page.append(header);
+
+    const list = el('div', { class: 'achList' });
+    for (const a of g.achievements) {
+      const row = el('div', { class: 'ach', dataset: { unlocked: 'false' } });
+      const img = el('div', { class: 'aimg' });
+      img.append(el('img', { src: a.image ?? `https://picsum.photos/seed/${encodeURIComponent(a.title)}/256/256`, alt: '' }));
+      const bits = [
+        achievementMeta(a),
+        ...(typeof a.rarity === 'number' ? [el('span', { class: 'pill' }, [`Rarity ${a.rarity.toFixed(1)}%`])] : []),
+      ];
+      const meta = el('div', { style: 'flex:1; min-width:0' }, [
+        el('div', { class: 'at' }, [a.title]),
+        el('div', { class: 'ad' }, [a.description || '—']),
+        el('div', { class: 'ar' }, bits),
+      ]);
+      row.append(img, meta);
+      list.append(row);
+    }
+    page.append(el('div', { class: 'h1', style: 'margin-top:14px' }, ['Achievements']));
+    page.append(list);
+    container.append(page);
+  }
+
   function renderSettings(container: HTMLElement) {
     topbarTitle.textContent = 'Settings';
     topbarSub.textContent = 'Make it feel right on mobile';
@@ -866,6 +1025,14 @@ function app() {
     if (r.name === 'library') renderLibrary(container);
     if (r.name === 'settings') renderSettings(container);
     if (r.name === 'game') renderGame(container, decodeURIComponent(r.id));
+    if (r.name === 'catalog') {
+      container.append(el('div', { class: 'empty' }, ['Loading catalog…']));
+      void renderCatalog(container);
+    }
+    if (r.name === 'catalog-game') {
+      container.append(el('div', { class: 'empty' }, ['Loading game…']));
+      void renderCatalogGame(container, decodeURIComponent(r.id));
+    }
   }
 
   window.addEventListener('hashchange', render);

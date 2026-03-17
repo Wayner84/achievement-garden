@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-03-17T23:19:44.195Z",
+  "updatedAt": "2026-03-17T23:27:33.376Z",
   "targets": {
     "psn": 100,
     "xbox": 100,
@@ -109,7 +109,27 @@
       "steam-dying-light",
       "steam-dying-light-2",
       "steam-farming-simulator-22",
-      "steam-helldivers-2-steam"
+      "steam-helldivers-2-steam",
+      "steam-god-of-war",
+      "steam-marvels-spider-man-remastered",
+      "steam-marvels-spider-man-2",
+      "steam-payday-2",
+      "steam-halo-the-master-chief-collection",
+      "steam-starfield",
+      "steam-resident-evil-4-steam",
+      "steam-hogwarts-legacy",
+      "steam-monster-hunter-world",
+      "steam-danganronpa-2",
+      "steam-danganronpa-ultra-despair-girls",
+      "steam-danganronpa-v3",
+      "steam-persona-4-golden",
+      "steam-persona-5-royal",
+      "steam-like-a-dragon-infinite-wealth",
+      "steam-yakuza-like-a-dragon",
+      "steam-dark-souls-3",
+      "steam-dark-souls-2",
+      "steam-dark-souls-remastered",
+      "steam-armored-core-6"
     ]
   },
   "notes": {
