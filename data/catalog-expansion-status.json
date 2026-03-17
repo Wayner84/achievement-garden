@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-03-16T22:55:00Z",
+  "updatedAt": "2026-03-16T23:48:48.562Z",
   "targets": {
     "psn": 100,
     "xbox": 100,
@@ -17,7 +17,13 @@
       "ps-the-last-of-us-part-i",
       "ps-returnal",
       "ps-demons-souls",
-      "ps-helldivers-2"
+      "ps-helldivers-2",
+      "ps-ff7-rebirth",
+      "ps-resident-evil-4",
+      "ps-elden-ring",
+      "ps-astro-bot",
+      "ps-silent-hill-2",
+      "ps-black-myth-wukong"
     ],
     "xbox": [
       "xbox-halo-infinite",
@@ -42,7 +48,28 @@
       "steam-dave-the-diver",
       "steam-kingdom-hearts-hd-15-25-remix",
       "steam-kingdom-hearts-hd-28-final-chapter-prologue",
-      "steam-kingdom-hearts-iii-re-mind"
+      "steam-kingdom-hearts-iii-re-mind",
+      "steam-portal",
+      "steam-terraria",
+      "steam-dead-cells",
+      "steam-binding-of-isaac-rebirth",
+      "steam-brotato",
+      "steam-outer-wilds",
+      "steam-oxygen-not-included",
+      "steam-cuphead",
+      "steam-risk-of-rain-2",
+      "steam-inscryption",
+      "steam-subnautica",
+      "steam-no-mans-sky",
+      "steam-cyberpunk-2077",
+      "steam-the-witcher-3",
+      "steam-fallout-4",
+      "steam-skyrim-special-edition",
+      "steam-sekiro",
+      "steam-palworld",
+      "steam-holocure",
+      "steam-just-shapes-beats",
+      "steam-deep-rock-galactic"
     ]
   },
   "notes": {
