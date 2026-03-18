@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "batchName": "psn-longrun-2026-03-17",
+  "items": [
+    {"platform":"psn","id":"ps-god-of-war-2018","title":"God of War","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/god-of-war-2018-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-marvels-spider-man-remastered","title":"Marvel's Spider-Man Remastered","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/marvels-spider-man-remastered-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-marvels-spider-man-miles-morales","title":"Marvel's Spider-Man: Miles Morales","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/spider-man-miles-morales-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-bloodborne","title":"Bloodborne","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/bloodborne-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-dark-souls-3","title":"Dark Souls 3","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/dark-souls-3-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-dark-souls-remastered","title":"Dark Souls Remastered","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/dark-souls-remastered-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-sekiro","title":"Sekiro: Shadows Die Twice","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/sekiro-shadows-die-twice-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-resident-evil-2","title":"Resident Evil 2","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/resident-evil-2-remake-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-resident-evil-3","title":"Resident Evil 3","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/resident-evil-3-remake-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-resident-evil-7","title":"Resident Evil 7","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/resident-evil-7-biohazard-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-resident-evil-village","title":"Resident Evil Village","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/resident-evil-village-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-death-stranding","title":"Death Stranding","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/death-stranding-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-days-gone","title":"Days Gone","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/days-gone-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-ghostwire-tokyo","title":"Ghostwire: Tokyo","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/ghostwire-tokyo-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-wo-long-fallen-dynasty","title":"Wo Long: Fallen Dynasty","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/wo-long-fallen-dynasty-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-lies-of-p","title":"Lies of P","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/lies-of-p-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-dead-space","title":"Dead Space","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/dead-space-remake-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-hogwarts-legacy","title":"Hogwarts Legacy","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/hogwarts-legacy-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-star-wars-jedi-survivor","title":"Star Wars Jedi: Survivor","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/star-wars-jedi-survivor-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-control","title":"Control","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/control-trophy-guide-roadmap/"}
+  ]
+}

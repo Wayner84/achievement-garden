@@ -75,6 +75,7 @@ function toast(msg: string) {
 function applySettingsToDom(settings: Settings) {
   document.documentElement.setAttribute('data-reduce-motion', String(settings.reduceMotion));
   document.documentElement.setAttribute('data-pink', settings.pinkIntensity);
+  document.documentElement.setAttribute('data-grid', settings.gridSize);
 }
 
 function app() {
@@ -383,8 +384,9 @@ function app() {
   };
 
   async function addCatalogGameToLibrary(catalogId: string) {
-    const { CATALOG_BY_ID, cloneCatalogGameToLibrary } = await loadCatalogModule();
-    const sourceGame = CATALOG_BY_ID.get(catalogId);
+    const { loadCatalogById, cloneCatalogGameToLibrary } = await loadCatalogModule();
+    const byId = await loadCatalogById();
+    const sourceGame = byId.get(catalogId);
     if (!sourceGame) {
       toast('Catalog game not found.');
       return;
@@ -765,8 +767,8 @@ function app() {
     contextBtn.innerHTML = icon('arrow-left');
     contextBtn.onclick = () => setRoute({ name: 'library' });
 
-    const { CATALOG_GAMES } = await loadCatalogModule();
-    const sorted = [...CATALOG_GAMES].sort((a, b) => a.title.localeCompare(b.title));
+    const { loadCatalogGames } = await loadCatalogModule();
+    const sorted = [...await loadCatalogGames()].sort((a, b) => a.title.localeCompare(b.title));
     const counts = sorted.reduce((acc, game) => {
       acc[game.platform] += 1;
       return acc;
@@ -817,8 +819,9 @@ function app() {
 
   async function renderCatalogGame(container: HTMLElement, id: string) {
     container.replaceChildren();
-    const { CATALOG_BY_ID, cloneCatalogGameToLibrary } = await loadCatalogModule();
-    const g = CATALOG_BY_ID.get(id);
+    const { loadCatalogById, cloneCatalogGameToLibrary } = await loadCatalogModule();
+    const byId = await loadCatalogById();
+    const g = byId.get(id);
     if (!g) {
       container.append(el('div', { class: 'empty' }, ['Catalog game not found.']));
       return;

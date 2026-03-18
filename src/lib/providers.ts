@@ -31,10 +31,10 @@ const CatalogProvider: Provider = {
   async search(q, platforms) {
     const needle = q.trim().toLowerCase();
     if (!needle) return [];
-    const { CATALOG_GAMES } = await loadCatalog();
+    const { loadCatalogGames } = await loadCatalog();
+    const catalogGames = await loadCatalogGames(platforms);
 
-    return CATALOG_GAMES
-      .filter((g) => platforms.includes(g.platform))
+    return catalogGames
       .filter((g) => g.title.toLowerCase().includes(needle))
       .map((g) => ({
         platform: g.platform,
@@ -46,8 +46,9 @@ const CatalogProvider: Provider = {
       }));
   },
   async fetchAchievements(r) {
-    const { CATALOG_BY_ID } = await loadCatalog();
-    const g = r.externalId ? CATALOG_BY_ID.get(r.externalId) : undefined;
+    const { loadCatalogById } = await loadCatalog();
+    const byId = await loadCatalogById(r.platform ? [r.platform] : undefined);
+    const g = r.externalId ? byId.get(r.externalId) : undefined;
     if (!g) return [];
     return g.achievements.map((a) => ({ ...a }));
   },
@@ -168,8 +169,9 @@ export async function searchAll(q: string, platforms: Platform[], settings: Sett
 
 export async function makeGameFromResult(r: SearchResult, settings: Settings): Promise<Game> {
   if (r.sourceKind === 'catalog' && r.externalId) {
-    const { CATALOG_BY_ID, cloneCatalogGameToLibrary } = await loadCatalog();
-    const g = CATALOG_BY_ID.get(r.externalId);
+    const { loadCatalogById, cloneCatalogGameToLibrary } = await loadCatalog();
+    const byId = await loadCatalogById(r.platform ? [r.platform] : undefined);
+    const g = byId.get(r.externalId);
     if (g) return cloneCatalogGameToLibrary(g);
   }
 

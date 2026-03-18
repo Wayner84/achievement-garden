@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-03-17T23:27:33.376Z",
+  "updatedAt": "2026-03-17T23:45:47.696Z",
   "targets": {
     "psn": 100,
     "xbox": 100,
@@ -23,7 +23,22 @@
       "ps-elden-ring",
       "ps-astro-bot",
       "ps-silent-hill-2",
-      "ps-black-myth-wukong"
+      "ps-black-myth-wukong",
+      "ps-god-of-war-2018",
+      "ps-marvels-spider-man-miles-morales",
+      "ps-sekiro",
+      "ps-resident-evil-2",
+      "ps-resident-evil-3",
+      "ps-resident-evil-village",
+      "ps-death-stranding",
+      "ps-days-gone",
+      "ps-ghostwire-tokyo",
+      "ps-wo-long-fallen-dynasty",
+      "ps-lies-of-p",
+      "ps-dead-space",
+      "ps-hogwarts-legacy",
+      "ps-star-wars-jedi-survivor",
+      "ps-control"
     ],
     "xbox": [
       "xbox-halo-infinite",

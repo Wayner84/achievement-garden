@@ -3,7 +3,11 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 const ROOT = process.cwd();
-const CATALOG_FILE = path.join(ROOT, 'src/lib/catalog.ts');
+const CATALOG_FILES = {
+  psn: path.join(ROOT, 'src/lib/catalog-psn.ts'),
+  xbox: path.join(ROOT, 'src/lib/catalog-xbox.ts'),
+  steam: path.join(ROOT, 'src/lib/catalog-steam.ts'),
+};
 const STATUS_FILE = path.join(ROOT, 'data/catalog-expansion-status.json');
 const argv = new Map(process.argv.slice(2).map((arg) => {
   const [k, ...rest] = arg.split('=');
@@ -99,13 +103,19 @@ function toPsnCode(item, achievements) {
   return `  psGame(\n    ${JSON.stringify(item.id)},\n    ${JSON.stringify(item.title)},\n    ${JSON.stringify(item.psnConsole)},\n    ${JSON.stringify(item.sourceUrl)},\n    [\n${lines}\n    ],\n  ),\n`;
 }
 const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
-let catalog = await fs.readFile(CATALOG_FILE, 'utf8');
+const catalogs = {
+  psn: await fs.readFile(CATALOG_FILES.psn, 'utf8'),
+  xbox: await fs.readFile(CATALOG_FILES.xbox, 'utf8'),
+  steam: await fs.readFile(CATALOG_FILES.steam, 'utf8'),
+};
 const status = JSON.parse(await fs.readFile(STATUS_FILE, 'utf8'));
 let processed = 0;
 let inserted = [];
 for (const item of manifest.items) {
   if (processed >= limit) break;
-  if (catalog.includes(`'${item.id}'`) || catalog.includes(`"${item.id}"`)) continue;
+  const catalogKey = item.platform;
+  if (!catalogs[catalogKey]) continue;
+  if (catalogs[catalogKey].includes(`'${item.id}'`) || catalogs[catalogKey].includes(`"${item.id}"`)) continue;
   try {
     let code = '';
     if (item.platform === 'steam') {
@@ -123,7 +133,7 @@ for (const item of manifest.items) {
     } else {
       continue;
     }
-    catalog = catalog.replace(/\n\];\n\nexport const CATALOG_BY_ID/, `\n${code}];\n\nexport const CATALOG_BY_ID`);
+    catalogs[catalogKey] = catalogs[catalogKey].replace(/\n\];\n?$/, `\n${code}];\n`);
     inserted.push(item.id);
     processed += 1;
   } catch (error) {
@@ -136,7 +146,11 @@ for (const key of ['psn', 'xbox', 'steam']) {
 }
 status.updatedAt = new Date().toISOString();
 if (!dryRun) {
-  await fs.writeFile(CATALOG_FILE, catalog);
-  await fs.writeFile(STATUS_FILE, `${JSON.stringify(status, null, 2)}\n`);
+  await Promise.all([
+    fs.writeFile(CATALOG_FILES.psn, catalogs.psn),
+    fs.writeFile(CATALOG_FILES.xbox, catalogs.xbox),
+    fs.writeFile(CATALOG_FILES.steam, catalogs.steam),
+    fs.writeFile(STATUS_FILE, `${JSON.stringify(status, null, 2)}\n`),
+  ]);
 }
 console.log('INSERTED', inserted.length, inserted.join(','));
