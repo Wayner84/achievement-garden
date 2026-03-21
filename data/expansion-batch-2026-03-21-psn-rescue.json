@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "batchName": "psn-rescue-2026-03-21",
+  "items": [
+    {"platform":"psn","id":"ps-bloodborne","title":"Bloodborne","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/guides/bloodborne.html"},
+    {"platform":"psn","id":"ps-dark-souls-3","title":"Dark Souls 3","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/guides/dark-souls-3-trophy-guide.html"},
+    {"platform":"psn","id":"ps-resident-evil-7","title":"Resident Evil 7","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/resident-evil-7-trophy-guide-roadmap/"}
+  ]
+}

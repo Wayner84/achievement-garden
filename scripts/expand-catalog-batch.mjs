@@ -18,6 +18,11 @@ const limit = argv.has('--limit') ? Number(argv.get('--limit')) : Infinity;
 const delayMs = argv.has('--delayMs') ? Number(argv.get('--delayMs')) : 2500;
 const dryRun = argv.has('--dry-run');
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const PSN_EXPECTED_TROPHY_COUNTS = {
+  'https://www.powerpyx.com/guides/bloodborne.html': 34,
+  'https://www.powerpyx.com/guides/dark-souls-3-trophy-guide.html': 43,
+  'https://www.powerpyx.com/resident-evil-7-trophy-guide-roadmap/': 38,
+};
 
 function decodeHtml(input) {
   return input
@@ -62,7 +67,7 @@ function parseSteamAchievements(html) {
     return { title, description, rarity, image };
   }).filter((a) => a.title && Number.isFinite(a.rarity) && a.image);
 }
-function parsePowerPyxAchievements(html) {
+function parsePowerPyxTableAchievements(html) {
   const headingIndex = html.search(/<h2[^>]*>[^<]*Trophy Guide<\/h2>/i);
   const tableIndex = html.indexOf('<table', headingIndex >= 0 ? headingIndex : 0);
   if (tableIndex < 0) throw new Error('PowerPyx parser could not find trophy table');
@@ -76,12 +81,40 @@ function parsePowerPyxAchievements(html) {
     const brSplit = cells[1].split(/<br\s*\/?>/i).map(normalizeText).filter(Boolean);
     const title = brSplit[0] ?? normalizeText(cells[1]);
     const description = brSplit.slice(1).join(' ') || normalizeText(cells[1]);
-    const tierAlt = (cells[2].match(/alt=["']([^"']+)["']/i)?.[1] ?? normalizeText(cells[2])).toLowerCase();
+    const tierAlt = (cells[2].match(/(?:alt|title)=["']([^"']+)["']/i)?.[1] ?? normalizeText(cells[2])).toLowerCase();
     const tier = ['bronze', 'silver', 'gold', 'platinum'].find((value) => tierAlt.includes(value)) ?? 'bronze';
     achievements.push({ title, description, tier, image: extractImageSrc(cells[0]) });
   }
-  if (!achievements.length) throw new Error('PowerPyx parser found no trophies');
+  if (!achievements.length) throw new Error('PowerPyx table parser found no trophies');
   return achievements;
+}
+function parseLegacyPowerPyxGuideAchievements(html) {
+  const achievements = [];
+  const seen = new Set();
+  for (const match of html.matchAll(/<a[^>]+name=["']([^"']+)["'][^>]*><\/a>/gi)) {
+    const anchor = match[1];
+    const anchorIndex = match.index ?? -1;
+    if (!anchor || anchorIndex < 0 || seen.has(anchor)) continue;
+    const before = html.slice(Math.max(0, anchorIndex - 800), anchorIndex);
+    const after = html.slice(anchorIndex, anchorIndex + 900);
+    const anchorEscaped = anchor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const titleTierMatch = new RegExp(`<img[^>]+alt=["'](Bronze|Silver|Gold|Platinum) Trophy["'][^>]*>\\s*([^<]+?)\\s*<span[^>]*>\\s*<img[^>]+alt=["'](?:Bronze|Silver|Gold|Platinum) Trophy["'][^>]*>\\s*<a[^>]+name=["']${anchorEscaped}["']`, 'i').exec(before + after.slice(0, 200));
+    if (!titleTierMatch) continue;
+    const title = normalizeText(titleTierMatch[2]);
+    const description = normalizeText(after.match(/<em>([\s\S]*?)<\/em>/i)?.[1] ?? '').replace(/\.$/, '');
+    if (!title || !description) continue;
+    seen.add(anchor);
+    achievements.push({ title, description, tier: titleTierMatch[1].toLowerCase() });
+  }
+  if (!achievements.length) throw new Error('PowerPyx legacy parser found no trophies');
+  return achievements;
+}
+function parsePowerPyxAchievements(html) {
+  try {
+    return parsePowerPyxTableAchievements(html);
+  } catch (error) {
+    return parseLegacyPowerPyxGuideAchievements(html);
+  }
 }
 function toSteamCode(item, achievements) {
   const sourceUrl = `https://steamcommunity.com/stats/${item.appId}/achievements`;
@@ -127,6 +160,10 @@ for (const item of manifest.items) {
     } else if (item.platform === 'psn') {
       const html = await fetchText(item.sourceUrl);
       const achs = parsePowerPyxAchievements(html);
+      const expectedCount = PSN_EXPECTED_TROPHY_COUNTS[item.sourceUrl];
+      if (expectedCount && achs.length !== expectedCount) {
+        throw new Error(`parsed ${achs.length}/${expectedCount} trophies from ${item.sourceUrl}`);
+      }
       code = toPsnCode(item, achs);
       status.catalogued.psn.push(item.id);
       console.log(`OK psn ${item.title}: ${achs.length}`);

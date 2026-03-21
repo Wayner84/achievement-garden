@@ -79,10 +79,9 @@
 ### Still broken / intentionally skipped
 These were probed and **not** added in this pass:
 - `Marvel's Spider-Man Remastered` — prior known bad/outdated URL still unresolved here
-- `Bloodborne` — older PowerPyx page format; existing parser still does not handle it
-- `Dark Souls 3` — prior known URL issue remains
+- `Bloodborne` — older PowerPyx page found at `https://www.powerpyx.com/guides/bloodborne.html`, but current fallback only recovered `10/34` trophies, so it remains intentionally skipped
+- `Dark Souls 3` — older PowerPyx page found at `https://www.powerpyx.com/guides/dark-souls-3-trophy-guide.html`, but current fallback still does not recover a complete list, so it remains intentionally skipped
 - `Dark Souls Remastered` — prior known URL issue remains
-- `Resident Evil 7` — prior checkpoint said a fixable URL variant likely exists, but it was not completed in this pass
 - `Final Fantasy VII Remake` — guessed PowerPyx URL 404
 - `Persona 5 Royal` — guessed PowerPyx URL 404
 - `NieR: Automata` — guessed PowerPyx URL 404
@@ -138,14 +137,27 @@ These were probed and **not** added in this pass:
 - `data/catalog-expansion-status.json`
 - `data/expansion-batch-2026-03-21-psn-37.json`
 - `data/expansion-batch-2026-03-21-psn-17.json`
+- `data/expansion-batch-2026-03-21-psn-rescue.json`
+- `scripts/expand-catalog-batch.mjs`
 - `SESSION_CHECKPOINT-2026-03-21.md`
 
+## Rescue follow-up added later in the session
+- Added a small PS rescue manifest: `data/expansion-batch-2026-03-21-psn-rescue.json`.
+- Fixed `Resident Evil 7` to the working URL:
+  - `https://www.powerpyx.com/resident-evil-7-trophy-guide-roadmap/`
+- Added a guarded fallback path in `scripts/expand-catalog-batch.mjs` for legacy PowerPyx pages.
+  - It now attempts a legacy parse if no modern trophy table exists.
+  - For known legacy targets with expected counts, it throws unless the parsed trophy count matches exactly, preventing partial imports.
+- Result of the rescue pass:
+  - `Resident Evil 7` was added cleanly with a complete 38-trophy list.
+  - `Bloodborne` and `Dark Souls 3` were still skipped because the legacy pages did not yield complete lists.
+
 ## Best continuation path
-1. Probe/fix the older blocked PS entries first:
+1. Steam first: find a trustworthy alternate source for the blocked Steam Community error-page titles (`UNDERTALE`, `ULTRAKILL`, `Valheim`, `Project Zomboid`, `Kerbal Space Program`) before changing the Steam path.
+2. Continue probing older PS entries:
    - Spider-Man Remastered
    - Bloodborne
    - Dark Souls 3
    - Dark Souls Remastered
-   - Resident Evil 7
-2. Add a fallback parser/source for older PowerPyx layouts.
-3. Then run another modern PS batch to continue climbing toward **150**.
+3. Keep the expected-count guard for legacy pages so partial trophy lists never land in the catalog.
+4. Then run another modern PS batch to continue climbing toward **150**.

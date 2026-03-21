@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-03-21T04:36:53.138Z",
+  "updatedAt": "2026-03-21T05:00:29.656Z",
   "targets": {
     "psn": 150,
     "xbox": 100,
@@ -86,7 +86,8 @@
       "ps-marathon",
       "ps-borderlands-4",
       "ps-the-first-berserker-khazan",
-      "ps-elden-ring-nightreign"
+      "ps-elden-ring-nightreign",
+      "ps-resident-evil-7"
     ],
     "xbox": [
       "xbox-halo-infinite",

@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "generatedAt": "2026-03-21T04:43:58.197Z",
+  "generatedAt": "2026-03-21T05:00:42.236Z",
   "shardSize": 25,
   "platforms": {
     "psn": {
-      "gameCount": 79,
-      "achievementCount": 3621,
+      "gameCount": 80,
+      "achievementCount": 3659,
       "shards": [
         {
           "file": "psn-001.json",
@@ -30,10 +30,10 @@
         },
         {
           "file": "psn-004.json",
-          "gameCount": 4,
-          "achievementCount": 145,
+          "gameCount": 5,
+          "achievementCount": 183,
           "firstGameId": "ps-marathon",
-          "lastGameId": "ps-elden-ring-nightreign"
+          "lastGameId": "ps-resident-evil-7"
         }
       ]
     },
