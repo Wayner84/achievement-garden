@@ -4,11 +4,13 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "catalog:generate": "node scripts/generate-catalog-assets.mjs",
+    "dev": "npm run catalog:generate && vite",
+    "build": "npm run catalog:generate && tsc && vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit",
-    "ingest:current-catalog": "node scripts/ingest-current-catalog.mjs"
+    "lint": "npm run catalog:generate && tsc --noEmit",
+    "ingest:current-catalog": "node scripts/ingest-current-catalog.mjs",
+    "catalog:expand": "node scripts/expand-catalog-batch.mjs"
   },
   "devDependencies": {
     "typescript": "~5.9.3",

@@ -95,9 +95,43 @@ These were probed and **not** added in this pass:
 - `Dying Light 2 Stay Human` — guessed PowerPyx URL 404
 
 ## Validation / repo state at checkpoint time
-- `npm run build` succeeded.
-- Build warning remains about very large chunks, especially `catalog-steam` and now `catalog-psn`.
-- Next structural improvement should likely be further catalog sharding/generated data rather than endlessly growing giant TS arrays.
+- Earlier in the session, `npm run build` succeeded.
+- Build warning at that point remained about very large chunks, especially `catalog-steam` and now `catalog-psn`.
+- That warning is now addressed by the catalog asset refactor below.
+
+## Catalog loading architecture refactor (completed later in this session)
+- Replaced runtime dynamic imports of giant TS catalog modules with a **generated JSON shard pipeline**.
+- Added `scripts/generate-catalog-assets.mjs`.
+  - It treats `src/lib/catalog-psn.ts`, `src/lib/catalog-xbox.ts`, and `src/lib/catalog-steam.ts` as the current authoring/ingest source of truth.
+  - It transpiles/imports those TS files in Node, then emits:
+    - `public/catalog/*.json` shard files
+    - `src/generated/catalog-manifest.json`
+- Updated `src/lib/catalog.ts` into a lightweight manifest-driven loader.
+  - It now fetches only the shard files for the requested platform(s).
+  - Shards are cached in-memory per file.
+  - Runtime behavior for callers stays the same: `loadCatalogGames`, `loadCatalogById`, and `cloneCatalogGameToLibrary` still expose the same contract.
+- Wired asset generation into npm scripts so normal workflows stay compatible:
+  - `npm run catalog:generate`
+  - `npm run build` now regenerates shards before TypeScript/Vite build
+  - `npm run lint` now regenerates shards before typecheck
+  - `npm run dev` now regenerates shards before starting Vite
+- Existing ingest/expansion scripts were **left compatible on purpose**.
+  - They can continue appending/editing the TS catalog source files.
+  - The generated JSON assets are rebuilt from those TS sources during normal build/dev/lint runs.
+
+## Post-refactor validation
+- `npm run build` succeeded after the refactor.
+- The old large Vite platform chunk warnings are gone.
+- Current production output is roughly:
+  - `dist/assets/catalog-*.js` loader chunk: ~2.5 kB
+  - main app chunk: ~38.1 kB
+  - catalog data now ships as static JSON shards under `public/catalog/` instead of huge JS chunks.
+
+## Follow-up guidance for future catalog work
+1. Keep using the TS platform catalog files as the editable source until/unless the ingest scripts are moved fully to JSON writing.
+2. After adding or changing catalog entries, run `npm run catalog:generate` (or just `npm run build` / `npm run dev`).
+3. If catalogs grow sharply, tune shard size via `CATALOG_SHARD_SIZE` for regeneration without changing runtime loader logic.
+4. A future cleanup could move ingestion scripts to write JSON-first source data directly, but this is no longer required to avoid bundle-size growth.
 
 ## Files added/updated this session
 - `src/lib/catalog-psn.ts`

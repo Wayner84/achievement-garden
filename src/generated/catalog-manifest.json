@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "generatedAt": "2026-03-21T04:43:58.197Z",
+  "shardSize": 25,
+  "platforms": {
+    "psn": {
+      "gameCount": 79,
+      "achievementCount": 3621,
+      "shards": [
+        {
+          "file": "psn-001.json",
+          "gameCount": 25,
+          "achievementCount": 1130,
+          "firstGameId": "ps-the-last-of-us-part-i",
+          "lastGameId": "ps-devil-may-cry-5"
+        },
+        {
+          "file": "psn-002.json",
+          "gameCount": 25,
+          "achievementCount": 1175,
+          "firstGameId": "ps-remnant-2",
+          "lastGameId": "ps-marvels-spider-man-2"
+        },
+        {
+          "file": "psn-003.json",
+          "gameCount": 25,
+          "achievementCount": 1171,
+          "firstGameId": "ps-forspoken",
+          "lastGameId": "ps-the-outer-worlds-2"
+        },
+        {
+          "file": "psn-004.json",
+          "gameCount": 4,
+          "achievementCount": 145,
+          "firstGameId": "ps-marathon",
+          "lastGameId": "ps-elden-ring-nightreign"
+        }
+      ]
+    },
+    "xbox": {
+      "gameCount": 10,
+      "achievementCount": 1076,
+      "shards": [
+        {
+          "file": "xbox-001.json",
+          "gameCount": 10,
+          "achievementCount": 1076,
+          "firstGameId": "xbox-halo-infinite",
+          "lastGameId": "xbox-tunic"
+        }
+      ]
+    },
+    "steam": {
+      "gameCount": 150,
+      "achievementCount": 12785,
+      "shards": [
+        {
+          "file": "steam-001.json",
+          "gameCount": 25,
+          "achievementCount": 2450,
+          "firstGameId": "steam-hades",
+          "lastGameId": "steam-cyberpunk-2077"
+        },
+        {
+          "file": "steam-002.json",
+          "gameCount": 25,
+          "achievementCount": 1920,
+          "firstGameId": "steam-the-witcher-3",
+          "lastGameId": "steam-halo-infinite-steam"
+        },
+        {
+          "file": "steam-003.json",
+          "gameCount": 25,
+          "achievementCount": 1698,
+          "firstGameId": "steam-red-dead-redemption-2",
+          "lastGameId": "steam-marvels-spider-man-remastered"
+        },
+        {
+          "file": "steam-004.json",
+          "gameCount": 25,
+          "achievementCount": 3379,
+          "firstGameId": "steam-marvels-spider-man-2",
+          "lastGameId": "steam-the-first-descendant"
+        },
+        {
+          "file": "steam-005.json",
+          "gameCount": 25,
+          "achievementCount": 2028,
+          "firstGameId": "steam-elden-ring",
+          "lastGameId": "steam-remnant-from-the-ashes"
+        },
+        {
+          "file": "steam-006.json",
+          "gameCount": 25,
+          "achievementCount": 1310,
+          "firstGameId": "steam-remnant-2",
+          "lastGameId": "steam-little-nightmares-2"
+        }
+      ]
+    }
+  }
+}
