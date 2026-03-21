@@ -1,0 +1,534 @@
+{
+  "ok": [
+    {
+      "id": "steam-elden-ring",
+      "title": "Elden Ring",
+      "appId": 1245620,
+      "count": 42
+    },
+    {
+      "id": "steam-geometry-dash",
+      "title": "Geometry Dash",
+      "appId": 322170,
+      "count": 547
+    },
+    {
+      "id": "steam-factorio",
+      "title": "Factorio",
+      "appId": 427520,
+      "count": 88
+    },
+    {
+      "id": "steam-the-binding-of-isaac",
+      "title": "The Binding of Isaac",
+      "appId": 113200,
+      "count": 99
+    },
+    {
+      "id": "steam-enter-the-gungeon",
+      "title": "Enter the Gungeon",
+      "appId": 311690,
+      "count": 54
+    },
+    {
+      "id": "steam-disco-elysium",
+      "title": "Disco Elysium - The Final Cut",
+      "appId": 632470,
+      "count": 45
+    },
+    {
+      "id": "steam-omori",
+      "title": "OMORI",
+      "appId": 1150690,
+      "count": 84
+    },
+    {
+      "id": "steam-dishonored",
+      "title": "Dishonored",
+      "appId": 205100,
+      "count": 80
+    },
+    {
+      "id": "steam-dishonored-2",
+      "title": "Dishonored 2",
+      "appId": 403640,
+      "count": 50
+    },
+    {
+      "id": "steam-doom-eternal",
+      "title": "DOOM Eternal",
+      "appId": 782330,
+      "count": 50
+    },
+    {
+      "id": "steam-doom-2016",
+      "title": "DOOM",
+      "appId": 379720,
+      "count": 54
+    },
+    {
+      "id": "steam-titanfall-2",
+      "title": "Titanfall 2",
+      "appId": 1237970,
+      "count": 50
+    },
+    {
+      "id": "steam-bioshock-remastered",
+      "title": "BioShock Remastered",
+      "appId": 409710,
+      "count": 65
+    },
+    {
+      "id": "steam-bioshock-2-remastered",
+      "title": "BioShock 2 Remastered",
+      "appId": 409720,
+      "count": 53
+    },
+    {
+      "id": "steam-bioshock-infinite",
+      "title": "BioShock Infinite",
+      "appId": 8870,
+      "count": 80
+    },
+    {
+      "id": "steam-prey",
+      "title": "Prey",
+      "appId": 480490,
+      "count": 58
+    },
+    {
+      "id": "steam-deus-ex-human-revolution",
+      "title": "Deus Ex: Human Revolution - Director's Cut",
+      "appId": 238010,
+      "count": 59
+    },
+    {
+      "id": "steam-deus-ex-mankind-divided",
+      "title": "Deus Ex: Mankind Divided",
+      "appId": 337000,
+      "count": 81
+    },
+    {
+      "id": "steam-metro-exodus",
+      "title": "Metro Exodus",
+      "appId": 412020,
+      "count": 68
+    },
+    {
+      "id": "steam-metro-2033-redux",
+      "title": "Metro 2033 Redux",
+      "appId": 286690,
+      "count": 49
+    },
+    {
+      "id": "steam-metro-last-light-redux",
+      "title": "Metro: Last Light Redux",
+      "appId": 287390,
+      "count": 49
+    },
+    {
+      "id": "steam-control-ultimate-edition",
+      "title": "Control Ultimate Edition",
+      "appId": 870780,
+      "count": 67
+    },
+    {
+      "id": "steam-ghostrunner",
+      "title": "Ghostrunner",
+      "appId": 1139900,
+      "count": 45
+    },
+    {
+      "id": "steam-sifu",
+      "title": "Sifu",
+      "appId": 2138710,
+      "count": 61
+    },
+    {
+      "id": "steam-remnant-from-the-ashes",
+      "title": "Remnant: From the Ashes",
+      "appId": 617290,
+      "count": 50
+    },
+    {
+      "id": "steam-remnant-2",
+      "title": "Remnant II",
+      "appId": 1282100,
+      "count": 65
+    },
+    {
+      "id": "steam-ori-and-the-blind-forest",
+      "title": "Ori and the Blind Forest: Definitive Edition",
+      "appId": 387290,
+      "count": 57
+    },
+    {
+      "id": "steam-ori-and-the-will-of-the-wisps",
+      "title": "Ori and the Will of the Wisps",
+      "appId": 1057090,
+      "count": 37
+    },
+    {
+      "id": "steam-cult-of-the-lamb",
+      "title": "Cult of the Lamb",
+      "appId": 1313140,
+      "count": 57
+    },
+    {
+      "id": "steam-a-hat-in-time",
+      "title": "A Hat in Time",
+      "appId": 253230,
+      "count": 46
+    },
+    {
+      "id": "steam-ghost-of-tsushima",
+      "title": "Ghost of Tsushima DIRECTOR'S CUT",
+      "appId": 2215430,
+      "count": 77
+    },
+    {
+      "id": "steam-elden-ring-nightreign",
+      "title": "ELDEN RING NIGHTREIGN",
+      "appId": 2622380,
+      "count": 37
+    },
+    {
+      "id": "steam-blasphemous",
+      "title": "Blasphemous",
+      "appId": 774361,
+      "count": 45
+    },
+    {
+      "id": "steam-blasphemous-2",
+      "title": "Blasphemous 2",
+      "appId": 2114740,
+      "count": 55
+    },
+    {
+      "id": "steam-hi-fi-rush",
+      "title": "Hi-Fi RUSH",
+      "appId": 1817230,
+      "count": 71
+    },
+    {
+      "id": "steam-yakuza-0",
+      "title": "Yakuza 0",
+      "appId": 638970,
+      "count": 55
+    },
+    {
+      "id": "steam-yakuza-kiwami",
+      "title": "Yakuza Kiwami",
+      "appId": 834530,
+      "count": 55
+    },
+    {
+      "id": "steam-yakuza-kiwami-2",
+      "title": "Yakuza Kiwami 2",
+      "appId": 927380,
+      "count": 59
+    },
+    {
+      "id": "steam-yakuza-3-remastered",
+      "title": "Yakuza 3 Remastered",
+      "appId": 1088710,
+      "count": 50
+    },
+    {
+      "id": "steam-yakuza-4-remastered",
+      "title": "Yakuza 4 Remastered",
+      "appId": 1105500,
+      "count": 47
+    },
+    {
+      "id": "steam-yakuza-5-remastered",
+      "title": "Yakuza 5 Remastered",
+      "appId": 1105510,
+      "count": 56
+    },
+    {
+      "id": "steam-judgment",
+      "title": "Judgment",
+      "appId": 2058180,
+      "count": 47
+    },
+    {
+      "id": "steam-lost-judgment",
+      "title": "Lost Judgment",
+      "appId": 2058190,
+      "count": 56
+    },
+    {
+      "id": "steam-dragons-dogma-2",
+      "title": "Dragon's Dogma 2",
+      "appId": 2054970,
+      "count": 54
+    },
+    {
+      "id": "steam-nier-automata",
+      "title": "NieR:Automata",
+      "appId": 524220,
+      "count": 47
+    },
+    {
+      "id": "steam-ff7-remake-intergrade",
+      "title": "FINAL FANTASY VII REMAKE INTERGRADE",
+      "appId": 1462040,
+      "count": 63
+    },
+    {
+      "id": "steam-ff16",
+      "title": "FINAL FANTASY XVI",
+      "appId": 2515020,
+      "count": 69
+    },
+    {
+      "id": "steam-shin-megami-tensei-v-vengeance",
+      "title": "Shin Megami Tensei V: Vengeance",
+      "appId": 1875830,
+      "count": 48
+    },
+    {
+      "id": "steam-little-nightmares",
+      "title": "Little Nightmares",
+      "appId": 424840,
+      "count": 22
+    },
+    {
+      "id": "steam-little-nightmares-2",
+      "title": "Little Nightmares II",
+      "appId": 860510,
+      "count": 35
+    },
+    {
+      "id": "steam-inside",
+      "title": "INSIDE",
+      "appId": 304430,
+      "count": 14
+    },
+    {
+      "id": "steam-limbo",
+      "title": "LIMBO",
+      "appId": 48000,
+      "count": 13
+    },
+    {
+      "id": "steam-untitled-goose-game",
+      "title": "Untitled Goose Game",
+      "appId": 837470,
+      "count": 25
+    },
+    {
+      "id": "steam-overcooked-2",
+      "title": "Overcooked! 2",
+      "appId": 728880,
+      "count": 54
+    },
+    {
+      "id": "steam-human-fall-flat",
+      "title": "Human Fall Flat",
+      "appId": 477160,
+      "count": 151
+    },
+    {
+      "id": "steam-astroneer",
+      "title": "ASTRONEER",
+      "appId": 361420,
+      "count": 56
+    },
+    {
+      "id": "steam-satisfactory",
+      "title": "Satisfactory",
+      "appId": 526870,
+      "count": 44
+    },
+    {
+      "id": "steam-cities-skylines",
+      "title": "Cities: Skylines",
+      "appId": 255710,
+      "count": 135
+    },
+    {
+      "id": "steam-cities-skylines-2",
+      "title": "Cities: Skylines II",
+      "appId": 949230,
+      "count": 44
+    },
+    {
+      "id": "steam-powerwash-simulator",
+      "title": "PowerWash Simulator",
+      "appId": 1290000,
+      "count": 100
+    },
+    {
+      "id": "steam-people-playground",
+      "title": "People Playground",
+      "appId": 1118200,
+      "count": 17
+    },
+    {
+      "id": "steam-unpacking",
+      "title": "Unpacking",
+      "appId": 1135690,
+      "count": 25
+    },
+    {
+      "id": "steam-firewatch",
+      "title": "Firewatch",
+      "appId": 383870,
+      "count": 10
+    },
+    {
+      "id": "steam-return-of-the-obra-dinn",
+      "title": "Return of the Obra Dinn",
+      "appId": 653530,
+      "count": 16
+    },
+    {
+      "id": "steam-case-of-the-golden-idol",
+      "title": "The Case of the Golden Idol",
+      "appId": 1677770,
+      "count": 17
+    },
+    {
+      "id": "steam-dredge",
+      "title": "DREDGE",
+      "appId": 1562430,
+      "count": 60
+    },
+    {
+      "id": "steam-signalis",
+      "title": "SIGNALIS",
+      "appId": 1262350,
+      "count": 13
+    },
+    {
+      "id": "steam-gris",
+      "title": "GRIS",
+      "appId": 683320,
+      "count": 17
+    },
+    {
+      "id": "steam-neon-white",
+      "title": "Neon White",
+      "appId": 1533420,
+      "count": 63
+    },
+    {
+      "id": "steam-bayonetta",
+      "title": "Bayonetta",
+      "appId": 460790,
+      "count": 50
+    },
+    {
+      "id": "steam-okami-hd",
+      "title": "Okami HD",
+      "appId": 587620,
+      "count": 51
+    },
+    {
+      "id": "steam-castlevania-dominus-collection",
+      "title": "Castlevania Dominus Collection",
+      "appId": 2369900,
+      "count": 52
+    },
+    {
+      "id": "steam-horizon-zero-dawn",
+      "title": "Horizon Zero Dawn Complete Edition",
+      "appId": 1151640,
+      "count": 79
+    },
+    {
+      "id": "steam-days-gone-steam",
+      "title": "Days Gone",
+      "appId": 1259420,
+      "count": 67
+    },
+    {
+      "id": "steam-ratchet-and-clank-rift-apart",
+      "title": "Ratchet & Clank: Rift Apart",
+      "appId": 1895880,
+      "count": 47
+    },
+    {
+      "id": "steam-the-last-of-us-part-i",
+      "title": "The Last of Us Part I",
+      "appId": 1888930,
+      "count": 29
+    },
+    {
+      "id": "steam-uncharted-legacy-of-thieves",
+      "title": "UNCHARTED: Legacy of Thieves Collection",
+      "appId": 1659420,
+      "count": 101
+    },
+    {
+      "id": "steam-god-of-war-ragnarok",
+      "title": "God of War Ragnarök",
+      "appId": 2322010,
+      "count": 48
+    },
+    {
+      "id": "steam-the-last-of-us-part-ii-remastered",
+      "title": "The Last of Us Part II Remastered",
+      "appId": 2531310,
+      "count": 45
+    },
+    {
+      "id": "steam-black-ops-3",
+      "title": "Call of Duty: Black Ops III",
+      "appId": 311210,
+      "count": 98
+    },
+    {
+      "id": "steam-the-evil-within",
+      "title": "The Evil Within",
+      "appId": 268050,
+      "count": 71
+    },
+    {
+      "id": "steam-the-evil-within-2",
+      "title": "The Evil Within 2",
+      "appId": 601430,
+      "count": 51
+    },
+    {
+      "id": "steam-wolfenstein-the-new-order",
+      "title": "Wolfenstein: The New Order",
+      "appId": 201810,
+      "count": 50
+    }
+  ],
+  "bad": [
+    {
+      "id": "steam-undertale",
+      "title": "Undertale",
+      "appId": 391540,
+      "error": "no achievements"
+    },
+    {
+      "id": "steam-ultrakill",
+      "title": "ULTRAKILL",
+      "appId": 1229490,
+      "error": "no achievements"
+    },
+    {
+      "id": "steam-valheim",
+      "title": "Valheim",
+      "appId": 892970,
+      "error": "no achievements"
+    },
+    {
+      "id": "steam-project-zomboid",
+      "title": "Project Zomboid",
+      "appId": 108600,
+      "error": "no achievements"
+    },
+    {
+      "id": "steam-kerbal-space-program",
+      "title": "Kerbal Space Program",
+      "appId": 220200,
+      "error": "no achievements"
+    }
+  ]
+}
