@@ -152,12 +152,98 @@ These were probed and **not** added in this pass:
   - `Resident Evil 7` was added cleanly with a complete 38-trophy list.
   - `Bloodborne` and `Dark Souls 3` were still skipped because the legacy pages did not yield complete lists.
 
+## Final bulk pass later in the night
+- Reused the normal batch ingester without changing the authoring path.
+- Promoted a previously probed Steam pool into a real ingest manifest: `data/expansion-batch-2026-03-21-steam-final.json`.
+- Added **33 more Steam games** cleanly from confirmed Steam Community achievement pages.
+- Built a PS probe/ingest manifest: `data/expansion-batch-2026-03-21-psn-final-probe.json`.
+- Added **10 more PSN games** with complete parseable trophy tables only.
+- Preserved durable failure tracking in:
+  - `data/expansion-run-2026-03-21-steam-final.log`
+  - `data/expansion-run-2026-03-21-psn-final.log`
+  - `data/expansion-run-2026-03-21-psn-final-errors.txt`
+- Regenerated catalog JSON shards and verified `npm run build` still passes after the new insertions.
+
+## Final catalog counts for the night
+- **PSN:** 90 games
+- **Steam:** 183 games
+- **Xbox:** 10 games
+
+## Steam games added in the final bulk pass
+- INSIDE
+- LIMBO
+- Untitled Goose Game
+- Overcooked! 2
+- Human Fall Flat
+- ASTRONEER
+- Satisfactory
+- Cities: Skylines
+- Cities: Skylines II
+- PowerWash Simulator
+- People Playground
+- Unpacking
+- Firewatch
+- Return of the Obra Dinn
+- The Case of the Golden Idol
+- DREDGE
+- SIGNALIS
+- GRIS
+- Neon White
+- Bayonetta
+- Okami HD
+- Castlevania Dominus Collection
+- Horizon Zero Dawn Complete Edition
+- Days Gone
+- Ratchet & Clank: Rift Apart
+- The Last of Us Part I
+- UNCHARTED: Legacy of Thieves Collection
+- God of War Ragnarök
+- The Last of Us Part II Remastered
+- Call of Duty: Black Ops III
+- The Evil Within
+- The Evil Within 2
+- Wolfenstein: The New Order
+
+## PSN games added in the final bulk pass
+- Assassin's Creed Mirage
+- Dead Rising Deluxe Remaster
+- LEGO Horizon Adventures
+- The Plucky Squire
+- Call of Duty: Black Ops Cold War
+- Call of Duty: Modern Warfare 2
+- Call of Duty: Modern Warfare 3
+- Star Wars Jedi: Fallen Order
+- Alone in the Dark (2024)
+- Final Fantasy VII Remake
+
+## Remaining notable blockers after the final pass
+- Steam still has known bad Steam Community achievement/error-page candidates in `data/steam-probe-results.json`:
+  - `UNDERTALE`
+  - `ULTRAKILL`
+  - `Valheim`
+  - `Project Zomboid`
+  - `Kerbal Space Program`
+- PS legacy / URL blockers still unresolved:
+  - Bloodborne (legacy page only parsed 10/34)
+  - Dark Souls 3 (legacy page only parsed partial trophies)
+  - Dark Souls Remastered (guessed URL 404)
+  - Marvel's Spider-Man Remastered (guessed URL 404)
+  - The Last of Us Part II Remastered (guessed URL 404)
+  - Until Dawn remake (guessed URL 404)
+  - Alan Wake Remastered (guessed URL 404)
+  - Suicide Squad: Kill the Justice League (guessed URL 404)
+  - Banishers: Ghosts of New Eden (guessed URL 404)
+  - Warhammer 40,000: Boltgun (guessed URL 404)
+  - Remnant: From the Ashes (guessed URL 404)
+  - Like a Dragon Gaiden: The Man Who Erased His Name (guessed URL 404)
+  - Judgment (guessed URL 404)
+  - Persona 5 Royal (guessed URL 404)
+  - NieR: Automata (guessed URL 404)
+  - Dying Light 2 Stay Human (guessed URL 404)
+  - Silent Hill: The Short Message (guessed URL 404)
+
 ## Best continuation path
-1. Steam first: find a trustworthy alternate source for the blocked Steam Community error-page titles (`UNDERTALE`, `ULTRAKILL`, `Valheim`, `Project Zomboid`, `Kerbal Space Program`) before changing the Steam path.
-2. Continue probing older PS entries:
-   - Spider-Man Remastered
-   - Bloodborne
-   - Dark Souls 3
-   - Dark Souls Remastered
-3. Keep the expected-count guard for legacy pages so partial trophy lists never land in the catalog.
-4. Then run another modern PS batch to continue climbing toward **150**.
+1. Keep using the same TS catalog source + generated JSON shard flow; it stayed stable through this pass.
+2. For Steam, either keep harvesting from confirmed Steam Community stats pages or add an alternate trusted source only for the specific Steam error-page holdouts.
+3. For PSN, use targeted URL discovery before probing again; the biggest blocker now is finding the correct PowerPyx pages for older/edge titles.
+4. Keep the expected-count guard for legacy pages so partial trophy lists never land in the catalog.

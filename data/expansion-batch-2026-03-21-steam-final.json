@@ -1,0 +1,204 @@
+{
+  "version": 1,
+  "batchName": "steam-final-2026-03-21",
+  "items": [
+    {
+      "platform": "steam",
+      "id": "steam-inside",
+      "title": "INSIDE",
+      "appId": 304430
+    },
+    {
+      "platform": "steam",
+      "id": "steam-limbo",
+      "title": "LIMBO",
+      "appId": 48000
+    },
+    {
+      "platform": "steam",
+      "id": "steam-untitled-goose-game",
+      "title": "Untitled Goose Game",
+      "appId": 837470
+    },
+    {
+      "platform": "steam",
+      "id": "steam-overcooked-2",
+      "title": "Overcooked! 2",
+      "appId": 728880
+    },
+    {
+      "platform": "steam",
+      "id": "steam-human-fall-flat",
+      "title": "Human Fall Flat",
+      "appId": 477160
+    },
+    {
+      "platform": "steam",
+      "id": "steam-astroneer",
+      "title": "ASTRONEER",
+      "appId": 361420
+    },
+    {
+      "platform": "steam",
+      "id": "steam-satisfactory",
+      "title": "Satisfactory",
+      "appId": 526870
+    },
+    {
+      "platform": "steam",
+      "id": "steam-cities-skylines",
+      "title": "Cities: Skylines",
+      "appId": 255710
+    },
+    {
+      "platform": "steam",
+      "id": "steam-cities-skylines-2",
+      "title": "Cities: Skylines II",
+      "appId": 949230
+    },
+    {
+      "platform": "steam",
+      "id": "steam-powerwash-simulator",
+      "title": "PowerWash Simulator",
+      "appId": 1290000
+    },
+    {
+      "platform": "steam",
+      "id": "steam-people-playground",
+      "title": "People Playground",
+      "appId": 1118200
+    },
+    {
+      "platform": "steam",
+      "id": "steam-unpacking",
+      "title": "Unpacking",
+      "appId": 1135690
+    },
+    {
+      "platform": "steam",
+      "id": "steam-firewatch",
+      "title": "Firewatch",
+      "appId": 383870
+    },
+    {
+      "platform": "steam",
+      "id": "steam-return-of-the-obra-dinn",
+      "title": "Return of the Obra Dinn",
+      "appId": 653530
+    },
+    {
+      "platform": "steam",
+      "id": "steam-case-of-the-golden-idol",
+      "title": "The Case of the Golden Idol",
+      "appId": 1677770
+    },
+    {
+      "platform": "steam",
+      "id": "steam-dredge",
+      "title": "DREDGE",
+      "appId": 1562430
+    },
+    {
+      "platform": "steam",
+      "id": "steam-signalis",
+      "title": "SIGNALIS",
+      "appId": 1262350
+    },
+    {
+      "platform": "steam",
+      "id": "steam-gris",
+      "title": "GRIS",
+      "appId": 683320
+    },
+    {
+      "platform": "steam",
+      "id": "steam-neon-white",
+      "title": "Neon White",
+      "appId": 1533420
+    },
+    {
+      "platform": "steam",
+      "id": "steam-bayonetta",
+      "title": "Bayonetta",
+      "appId": 460790
+    },
+    {
+      "platform": "steam",
+      "id": "steam-okami-hd",
+      "title": "Okami HD",
+      "appId": 587620
+    },
+    {
+      "platform": "steam",
+      "id": "steam-castlevania-dominus-collection",
+      "title": "Castlevania Dominus Collection",
+      "appId": 2369900
+    },
+    {
+      "platform": "steam",
+      "id": "steam-horizon-zero-dawn",
+      "title": "Horizon Zero Dawn Complete Edition",
+      "appId": 1151640
+    },
+    {
+      "platform": "steam",
+      "id": "steam-days-gone-steam",
+      "title": "Days Gone",
+      "appId": 1259420
+    },
+    {
+      "platform": "steam",
+      "id": "steam-ratchet-and-clank-rift-apart",
+      "title": "Ratchet & Clank: Rift Apart",
+      "appId": 1895880
+    },
+    {
+      "platform": "steam",
+      "id": "steam-the-last-of-us-part-i",
+      "title": "The Last of Us Part I",
+      "appId": 1888930
+    },
+    {
+      "platform": "steam",
+      "id": "steam-uncharted-legacy-of-thieves",
+      "title": "UNCHARTED: Legacy of Thieves Collection",
+      "appId": 1659420
+    },
+    {
+      "platform": "steam",
+      "id": "steam-god-of-war-ragnarok",
+      "title": "God of War Ragnarök",
+      "appId": 2322010
+    },
+    {
+      "platform": "steam",
+      "id": "steam-the-last-of-us-part-ii-remastered",
+      "title": "The Last of Us Part II Remastered",
+      "appId": 2531310
+    },
+    {
+      "platform": "steam",
+      "id": "steam-black-ops-3",
+      "title": "Call of Duty: Black Ops III",
+      "appId": 311210
+    },
+    {
+      "platform": "steam",
+      "id": "steam-the-evil-within",
+      "title": "The Evil Within",
+      "appId": 268050
+    },
+    {
+      "platform": "steam",
+      "id": "steam-the-evil-within-2",
+      "title": "The Evil Within 2",
+      "appId": 601430
+    },
+    {
+      "platform": "steam",
+      "id": "steam-wolfenstein-the-new-order",
+      "title": "Wolfenstein: The New Order",
+      "appId": 201810
+    }
+  ]
+}

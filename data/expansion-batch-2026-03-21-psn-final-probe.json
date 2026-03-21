@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "batchName": "psn-final-probe-2026-03-21",
+  "items": [
+    {
+      "platform": "psn",
+      "id": "ps-assassins-creed-mirage",
+      "title": "Assassin's Creed Mirage",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/assassins-creed-mirage-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-dead-rising-deluxe-remaster",
+      "title": "Dead Rising Deluxe Remaster",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/dead-rising-deluxe-remaster-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-the-last-of-us-part-2-remastered",
+      "title": "The Last of Us Part II Remastered",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/the-last-of-us-part-2-remastered-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-lego-horizon-adventures",
+      "title": "LEGO Horizon Adventures",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/lego-horizon-adventures-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-the-plucky-squire",
+      "title": "The Plucky Squire",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/the-plucky-squire-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-until-dawn-remake",
+      "title": "Until Dawn",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/until-dawn-2024-remake-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-black-ops-cold-war",
+      "title": "Call of Duty: Black Ops Cold War",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/call-of-duty-black-ops-cold-war-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-modern-warfare-2",
+      "title": "Call of Duty: Modern Warfare 2",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/call-of-duty-modern-warfare-2-2022-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-modern-warfare-3",
+      "title": "Call of Duty: Modern Warfare 3",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/call-of-duty-modern-warfare-3-2023-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-alan-wake-remastered",
+      "title": "Alan Wake Remastered",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/alan-wake-remastered-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-star-wars-jedi-fallen-order",
+      "title": "Star Wars Jedi: Fallen Order",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/star-wars-jedi-fallen-order-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-suicide-squad-kill-the-justice-league",
+      "title": "Suicide Squad: Kill the Justice League",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/suicide-squad-kill-the-justice-league-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-banishers-ghosts-of-new-eden",
+      "title": "Banishers: Ghosts of New Eden",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/banishers-ghosts-of-new-eden-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-alone-in-the-dark-2024",
+      "title": "Alone in the Dark",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/alone-in-the-dark-2024-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-warhammer-40000-boltgun",
+      "title": "Warhammer 40,000: Boltgun",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/warhammer-40000-boltgun-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-remnant-from-the-ashes",
+      "title": "Remnant: From the Ashes",
+      "psnConsole": "PS4",
+      "sourceUrl": "https://www.powerpyx.com/remnant-from-the-ashes-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-like-a-dragon-gaiden",
+      "title": "Like a Dragon Gaiden: The Man Who Erased His Name",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/like-a-dragon-gaiden-the-man-who-erased-his-name-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-judgment",
+      "title": "Judgment",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/judgment-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-persona-5-royal",
+      "title": "Persona 5 Royal",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/persona-5-royal-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-nier-automata",
+      "title": "NieR:Automata",
+      "psnConsole": "PS4",
+      "sourceUrl": "https://www.powerpyx.com/nier-automata-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-final-fantasy-vii-remake",
+      "title": "Final Fantasy VII Remake",
+      "psnConsole": "PS4",
+      "sourceUrl": "https://www.powerpyx.com/final-fantasy-vii-remake-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-marvels-spider-man-remastered",
+      "title": "Marvel's Spider-Man Remastered",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/marvels-spider-man-remastered-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-dark-souls-remastered",
+      "title": "Dark Souls Remastered",
+      "psnConsole": "PS4",
+      "sourceUrl": "https://www.powerpyx.com/dark-souls-remastered-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-dying-light-2-stay-human",
+      "title": "Dying Light 2 Stay Human",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/dying-light-2-stay-human-trophy-guide-roadmap/"
+    },
+    {
+      "platform": "psn",
+      "id": "ps-silent-hill-the-short-message",
+      "title": "Silent Hill: The Short Message",
+      "psnConsole": "PS5",
+      "sourceUrl": "https://www.powerpyx.com/silent-hill-the-short-message-trophy-guide-roadmap/"
+    }
+  ]
+}

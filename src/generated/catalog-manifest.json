@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "generatedAt": "2026-03-21T05:00:42.236Z",
+  "generatedAt": "2026-03-21T05:08:55.457Z",
   "shardSize": 25,
   "platforms": {
     "psn": {
-      "gameCount": 80,
-      "achievementCount": 3659,
+      "gameCount": 90,
+      "achievementCount": 4048,
       "shards": [
         {
           "file": "psn-001.json",
@@ -30,10 +30,10 @@
         },
         {
           "file": "psn-004.json",
-          "gameCount": 5,
-          "achievementCount": 183,
+          "gameCount": 15,
+          "achievementCount": 572,
           "firstGameId": "ps-marathon",
-          "lastGameId": "ps-resident-evil-7"
+          "lastGameId": "ps-final-fantasy-vii-remake"
         }
       ]
     },
@@ -51,8 +51,8 @@
       ]
     },
     "steam": {
-      "gameCount": 150,
-      "achievementCount": 12785,
+      "gameCount": 183,
+      "achievementCount": 14498,
       "shards": [
         {
           "file": "steam-001.json",
@@ -95,6 +95,20 @@
           "achievementCount": 1310,
           "firstGameId": "steam-remnant-2",
           "lastGameId": "steam-little-nightmares-2"
+        },
+        {
+          "file": "steam-007.json",
+          "gameCount": 25,
+          "achievementCount": 1220,
+          "firstGameId": "steam-inside",
+          "lastGameId": "steam-ratchet-and-clank-rift-apart"
+        },
+        {
+          "file": "steam-008.json",
+          "gameCount": 8,
+          "achievementCount": 493,
+          "firstGameId": "steam-the-last-of-us-part-i",
+          "lastGameId": "steam-wolfenstein-the-new-order"
         }
       ]
     }
