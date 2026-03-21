@@ -1,0 +1,11 @@
+{
+  "items": [
+    { "platform": "steam", "id": "steam-loop-hero", "title": "Loop Hero", "appId": 1282730 },
+    { "platform": "steam", "id": "steam-fallout-76", "title": "Fallout 76", "appId": 1151340 },
+    { "platform": "steam", "id": "steam-deltarune", "title": "Deltarune", "appId": 1361210 },
+    { "platform": "steam", "id": "steam-sea-of-stars", "title": "Sea of Stars", "appId": 1172620 },
+    { "platform": "steam", "id": "steam-sonic-frontiers", "title": "Sonic Frontiers", "appId": 1237320 },
+    { "platform": "steam", "id": "steam-street-fighter-6", "title": "Street Fighter 6", "appId": 1364780 },
+    { "platform": "steam", "id": "steam-the-first-descendant", "title": "The First Descendant", "appId": 2074920 }
+  ]
+}

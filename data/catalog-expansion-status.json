@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-03-17T23:45:47.696Z",
+  "updatedAt": "2026-03-21T04:24:07.769Z",
   "targets": {
     "psn": 100,
     "xbox": 100,
@@ -8,15 +8,7 @@
   },
   "catalogued": {
     "psn": [
-      "ps-astros-playroom",
-      "ps-marvels-spider-man-2",
-      "ps-god-of-war-ragnarok",
-      "ps-ratchet-clank-rift-apart",
-      "ps-horizon-forbidden-west",
-      "ps-ghost-of-tsushima",
       "ps-the-last-of-us-part-i",
-      "ps-returnal",
-      "ps-demons-souls",
       "ps-helldivers-2",
       "ps-ff7-rebirth",
       "ps-resident-evil-4",
@@ -54,12 +46,13 @@
     ],
     "steam": [
       "steam-hades",
-      "steam-hollow-knight",
-      "steam-balatro",
+      "steam-portal-2",
       "steam-celeste",
-      "steam-factorio",
-      "steam-satisfactory",
-      "steam-disco-elysium",
+      "steam-hollow-knight",
+      "steam-vampire-survivors",
+      "steam-slay-the-spire",
+      "steam-balatro",
+      "steam-stardew-valley",
       "steam-dave-the-diver",
       "steam-kingdom-hearts-hd-15-25-remix",
       "steam-kingdom-hearts-hd-28-final-chapter-prologue",
@@ -144,7 +137,14 @@
       "steam-dark-souls-3",
       "steam-dark-souls-2",
       "steam-dark-souls-remastered",
-      "steam-armored-core-6"
+      "steam-armored-core-6",
+      "steam-loop-hero",
+      "steam-fallout-76",
+      "steam-deltarune",
+      "steam-sea-of-stars",
+      "steam-sonic-frontiers",
+      "steam-street-fighter-6",
+      "steam-the-first-descendant"
     ]
   },
   "notes": {
