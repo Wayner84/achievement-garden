@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "batchName": "psn-17-2026-03-21",
+  "items": [
+    {"platform":"psn","id":"ps-lords-of-the-fallen-2023","title":"Lords of the Fallen","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/lords-of-the-fallen-2023-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-avatar-frontiers-of-pandora","title":"Avatar: Frontiers of Pandora","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/avatar-frontiers-of-pandora-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-granblue-fantasy-relink","title":"Granblue Fantasy: Relink","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/granblue-fantasy-relink-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-star-wars-outlaws","title":"Star Wars Outlaws","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/star-wars-outlaws-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-astros-playroom","title":"Astro's Playroom","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/astros-playroom-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-uncharted-legacy-of-thieves","title":"Uncharted: Legacy of Thieves Collection","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/uncharted-legacy-of-thieves-collection-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-uncharted-lost-legacy","title":"Uncharted: The Lost Legacy","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/uncharted-the-lost-legacy-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-crash-bandicoot-4","title":"Crash Bandicoot 4: It's About Time","psnConsole":"PS4","sourceUrl":"https://www.powerpyx.com/crash-bandicoot-4-its-about-time-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-dragon-age-the-veilguard","title":"Dragon Age: The Veilguard","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/dragon-age-the-veilguard-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-silent-hill-f","title":"Silent Hill f","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/silent-hill-f-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-the-outer-worlds-2","title":"The Outer Worlds 2","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/the-outer-worlds-2-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-marathon","title":"Marathon","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/marathon-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-borderlands-4","title":"Borderlands 4","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/borderlands-4-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-the-first-berserker-khazan","title":"The First Berserker: Khazan","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/the-first-berserker-khazan-trophy-guide-roadmap/"},
+    {"platform":"psn","id":"ps-elden-ring-nightreign","title":"ELDEN RING NIGHTREIGN","psnConsole":"PS5","sourceUrl":"https://www.powerpyx.com/elden-ring-nightreign-trophy-guide-roadmap/"}
+  ]
+}
