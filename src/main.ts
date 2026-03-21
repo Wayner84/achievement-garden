@@ -136,8 +136,17 @@ function app() {
     el('span', {}, ['Import']),
     el('span', { style: 'opacity:.75' }, ['↑']),
   ]);
+  const navSupport = el('a', {
+    class: 'navbtn supportbtn',
+    href: 'https://paypal.me/Wayner842',
+    target: '_blank',
+    rel: 'noreferrer',
+  }, [
+    el('span', {}, ['Buy me a coffee']),
+    el('span', { style: 'opacity:.75' }, ['☕']),
+  ]);
 
-  drawer.append(navAdd, navCatalog, navSettings, navExport, navImport);
+  drawer.append(navAdd, navCatalog, navSettings, navExport, navImport, navSupport);
 
   function setDrawer(open: boolean) {
     drawerOpen = open;
@@ -1007,6 +1016,12 @@ function app() {
       steamApi,
       gateway,
       el('div', { style: 'height:1px; background: rgba(255,255,255,.08); margin: 6px 0' }),
+      el('a', {
+        class: 'btn supportcta',
+        href: 'https://paypal.me/Wayner842',
+        target: '_blank',
+        rel: 'noreferrer',
+      }, ['☕ Buy me a coffee']),
       danger,
     );
 

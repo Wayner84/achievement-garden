@@ -337,8 +337,18 @@ button, input{font:inherit}
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.12);
   color: rgba(247,239,255,.92);
+  text-decoration:none;
 }
 .navbtn:hover{background: rgba(255,255,255,.09)}
+.supportbtn{
+  background: linear-gradient(90deg, rgba(255,176,83,.18), rgba(255,63,180,.18));
+  border-color: rgba(255,186,110,.38);
+  box-shadow: 0 14px 30px rgba(0,0,0,.28), 0 0 0 1px rgba(255,214,158,.06) inset;
+}
+.supportbtn:hover{
+  background: linear-gradient(90deg, rgba(255,176,83,.24), rgba(255,63,180,.22));
+  border-color: rgba(255,205,140,.5);
+}
 
 /* page blocks */
 .h1{
@@ -444,12 +454,26 @@ button, input{font:inherit}
   border: 1px solid rgba(255,255,255,.14);
   background: rgba(255,255,255,.06);
   color: rgba(247,239,255,.92);
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 }
 .btn.primary{
   border-color: rgba(255,63,180,.55);
   background: linear-gradient(90deg, rgba(255,29,142,.35), rgba(155,92,255,.22));
 }
 .btn.danger{border-color: rgba(255,65,95,.6); background: rgba(255,65,95,.12)}
+.supportcta{
+  width:100%;
+  border-color: rgba(255,186,110,.45);
+  background: linear-gradient(90deg, rgba(255,176,83,.22), rgba(255,63,180,.18));
+  box-shadow: 0 16px 32px rgba(0,0,0,.22);
+}
+.supportcta:hover{
+  border-color: rgba(255,214,158,.56);
+  background: linear-gradient(90deg, rgba(255,176,83,.28), rgba(255,63,180,.22));
+}
 .ghostpill{
   cursor:pointer;
   appearance:none;
